@@ -513,7 +513,7 @@
             group: "Predecessor Tool",
             startDate: "2001-01-01",
             endDate: "2001-12-31",
-            description: "Processing, a Java-based visual programming tool, is created by Casey Reas and Ben Fry to make coding accessible for artists."
+            description: "Processing, a Java-based visual programming tool, is collaborated with various artists that include Lauren Lee McCarthy, Casey Reas and Ben Fry to make coding accessible for artists."
           },
           {
             task: "STEAM Movement Rises",
@@ -545,7 +545,7 @@
           }
         ];
         function renderGantt() {
-          const margin = {top: 60, right: 60, bottom: 200, left: 370};
+          const margin = {top: 60, right: 60, bottom: 200, left: 450};
           const width = 1400 - margin.left - margin.right;
           const height = 650 - margin.top - margin.bottom;
           const svg = d3.select('#history-gantt').append('svg')
@@ -642,63 +642,9 @@
             d3.select(this).attr('fill', groupColors[d.group] || '#888');
           });
           // Legend
-          const legend = svg.append('g')
-            .attr('transform', `translate(${margin.left},${margin.top - 44})`);
-          const legendData = Object.entries(groupColors);
-          // Calculate total width needed for all legend items
-          let legendBoxWidth = 0;
-          const legendSpacing = 44; // space between color and text
-          legendData.forEach((d, i) => {
-            legendBoxWidth += 32 + legendSpacing + (d[0].length * 15) + 40; // color + spacing + text + extra
-          });
-          legend.append('rect')
-            .attr('x', -18)
-            .attr('y', -18)
-            .attr('width', legendBoxWidth)
-            .attr('height', 38)
-            .attr('fill', '#fff')
-            .attr('stroke', '#e0e0e0')
-            .attr('rx', 12);
-          legend.selectAll('rect.color')
-            .data(legendData)
-            .enter().append('rect')
-            .attr('class', 'color')
-            .attr('x', (d,i) => i*260)
-            .attr('y', 0)
-            .attr('width', 32)
-            .attr('height', 32)
-            .attr('fill', d => d[1])
-            .attr('rx', 7);
-          legend.selectAll('text')
-            .data(legendData)
-            .enter().append('text')
-            .attr('x', (d,i) => i*260 + 44)
-            .attr('y', 24)
-            .attr('font-size', 20)
-            .attr('font-weight', 600)
-            .attr('fill', '#444')
-            .text(d => d[0]);
+          // Remove the entire legend rendering block so no legend or labels appear above the chart
         }
-        renderGantt();
-        // Render the other two graphs
-        renderForceGraph({
-          selector: "#context-network",
-          nodes: [
-            {id: 'p5.js', group: 0},
-            {id: 'Lack of Representation', group: 1},
-            {id: 'Corporate Tech Culture', group: 1},
-            {id: 'Response to Processing', group: 1},
-            {id: 'Educational Context', group: 1},
-            {id: 'Community-first Philosophy', group: 1}
-          ],
-          links: [
-            {source: 'p5.js', target: 'Lack of Representation'},
-            {source: 'p5.js', target: 'Corporate Tech Culture'},
-            {source: 'p5.js', target: 'Response to Processing'},
-            {source: 'p5.js', target: 'Educational Context'},
-            {source: 'p5.js', target: 'Community-first Philosophy'}
-          ]
-        });
+ 
         // Visual/aesthetic data for force-directed graph
         const visualData = {
           nodes: [
@@ -949,11 +895,161 @@
             }
           };
         }, 'p5sketch3');
+
+        // 6. Actor Network Diagram
+        function renderActorNetwork() {
+          const width = 1200;
+          const height = 900;
+          const color = d3.scaleOrdinal()
+            .domain(["core", "human", "non-human", "hidden"])
+            .range(["#ff9800", "#4fc3f7", "#81c784", "#bdbdbd"]);
+          const edgeColor = d3.scaleOrdinal()
+            .domain(["information", "material", "value", "policy"])
+            .range(["#1976d2", "#388e3c", "#d32f2f", "#8e24aa"]);
+          const links = [
+            { source: "Lauren Lee McCarthy", target: "p5.js", type: "information" },
+            { source: "Community Contributors", target: "p5.js", type: "information" },
+            { source: "Artists & Educators", target: "p5.js", type: "information" },
+            { source: "Students & Learners", target: "p5.js", type: "information" },
+            { source: "Processing Foundation", target: "p5.js", type: "information" },
+            { source: "p5.js", target: "Students & Learners", type: "information" },
+            { source: "JavaScript Engine", target: "p5.js", type: "material" },
+            { source: "p5 Web Editor", target: "p5.js", type: "material" },
+            { source: "GitHub Repo", target: "p5.js", type: "information" },
+            { source: "Code", target: "p5.js", type: "material" },
+            { source: "Open Source License", target: "p5.js", type: "policy" },
+            { source: "Docs & Community Guidelines", target: "p5.js", type: "information" },
+            { source: "Translation Layers", target: "p5.js", type: "information" },
+            { source: "Cloud Providers", target: "p5 Web Editor", type: "material" },
+            { source: "Browser Platforms", target: "JavaScript Engine", type: "material" },
+            { source: "Third-party Packages", target: "Code", type: "material" },
+            { source: "Funding Bodies", target: "Processing Foundation", type: "value" },
+            { source: "Institutional Academia", target: "Artists & Educators", type: "value" }
+          ];
+          const nodes = [
+            { id: "p5.js", group: "core" },
+            { id: "Lauren Lee McCarthy", group: "human" },
+            { id: "Community Contributors", group: "human" },
+            { id: "Artists & Educators", group: "human" },
+            { id: "Students & Learners", group: "human" },
+            { id: "Processing Foundation", group: "human" },
+            { id: "JavaScript Engine", group: "non-human" },
+            { id: "p5 Web Editor", group: "non-human" },
+            { id: "GitHub Repo", group: "non-human" },
+            { id: "Code", group: "non-human" },
+            { id: "Open Source License", group: "non-human" },
+            { id: "Docs & Community Guidelines", group: "non-human" },
+            { id: "Translation Layers", group: "non-human" },
+            { id: "Cloud Providers", group: "hidden" },
+            { id: "Browser Platforms", group: "hidden" },
+            { id: "Third-party Packages", group: "hidden" },
+            { id: "Funding Bodies", group: "hidden" },
+            { id: "Institutional Academia", group: "hidden" }
+          ];
+          d3.select('#actor-network').selectAll('svg').remove();
+          const svg = d3.select('#actor-network')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .attr('viewBox', [0, 0, width, height])
+            .attr('style', 'max-width: 100%; height: auto; background: #fff; border-radius: 18px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); font-family: "Inter", Arial, sans-serif;');
+          const simulation = d3.forceSimulation(nodes)
+            .force('link', d3.forceLink(links).id(d => d.id).distance(160))
+            .force('charge', d3.forceManyBody().strength(-700))
+            .force('center', d3.forceCenter(width / 2, height / 2))
+            .force('collision', d3.forceCollide().radius(38))
+            .on('tick', ticked);
+          const link = svg.append('g')
+            .attr('stroke-opacity', 0.7)
+            .selectAll('line')
+            .data(links)
+            .join('line')
+            .attr('stroke', d => edgeColor(d.type))
+            .attr('stroke-width', 5);
+          const node = svg.append('g')
+            .attr('stroke', '#fff')
+            .attr('stroke-width', 2.5)
+            .selectAll('circle')
+            .data(nodes)
+            .join('circle')
+            .attr('r', 32)
+            .attr('fill', d => color(d.group))
+            .style('cursor', 'pointer')
+            .call(d3.drag()
+              .on('start', dragstarted)
+              .on('drag', dragged)
+              .on('end', dragended));
+          node.append('title').text(d => d.id);
+          const label = svg.append('g')
+            .selectAll('text')
+            .data(nodes)
+            .join('text')
+            .attr('font-size', 18)
+            .attr('font-weight', 600)
+            .attr('fill', '#003366')
+            .attr('text-anchor', 'middle')
+            .attr('pointer-events', 'none')
+            .text(d => d.id);
+          function ticked() {
+            link
+              .attr('x1', d => d.source.x)
+              .attr('y1', d => d.source.y)
+              .attr('x2', d => d.target.x)
+              .attr('y2', d => d.target.y);
+            node
+              .attr('cx', d => d.x)
+              .attr('cy', d => d.y);
+            label
+              .attr('x', d => d.x)
+              .attr('y', d => d.y + 6);
+          }
+          function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+          }
+          function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+          }
+          function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+          }
+        }
+
+        // --- Call all your render functions ---
+        renderOntologyGraph();
+        renderGantt();
+        renderForceGraph({
+          selector: "#context-network",
+          nodes: [
+            {id: 'p5.js', group: 0},
+            {id: 'Lack of Representation', group: 1},
+            {id: 'Corporate Tech Culture', group: 1},
+            {id: 'Response to Processing', group: 1},
+            {id: 'Educational Context', group: 1},
+            {id: 'Community-first Philosophy', group: 1}
+          ],
+          links: [
+            {source: 'p5.js', target: 'Lack of Representation'},
+            {source: 'p5.js', target: 'Corporate Tech Culture'},
+            {source: 'p5.js', target: 'Response to Processing'},
+            {source: 'p5.js', target: 'Educational Context'},
+            {source: 'p5.js', target: 'Community-first Philosophy'}
+          ]
+        });
+        renderVisualGraph(visualData);
+        renderActorNetwork();
+
       });
     </script>
     <section>
       <h3>Final Submission</h3>
-      <p>[Add your final submission content here]</p>
+      <h4>Actor Network Diagram</h4>
+      <div id="actor-network" style="width:100%;max-width:1200px;height:900px;margin:60px auto 60px auto;"></div>
+      
     </section>
   </main>
 </body>
