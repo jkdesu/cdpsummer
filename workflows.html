@@ -3,14 +3,131 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Computational Design Workflows</title>
+  <title>Design Workflows</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  
+  <!-- Chart-specific styles -->
+  <style>
+    /* Container styles */
+    .timeline-container {
+      margin: 2rem 0;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      max-width: 100%;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    
+    /* Chart element styles */
+    .artist-bar {
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+    
+    .artist-bar:hover {
+      opacity: 0.8;
+    }
+    
+    /* Tooltip styles */
+    .tooltip {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      pointer-events: none;
+    }
+    
+    /* Artwork modal styles */
+    .artwork-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #666;
+    }
+    
+    .modal-close:hover {
+      color: #000;
+    }
+    
+    .artwork-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      margin: 10px 0;
+    }
+    
+    .artist-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    .artwork-title {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    
+    /* Legend styles */
+    .category-legend {
+      margin-top: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 11px;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+    }
+    
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+    }
+  </style>
 </head>
+
 <body>
+  <!-- Header -->
   <header>
     <span class="header-left">Ji-in Kang</span>
     <span class="header-right">Columbia University CDP 2025</span>
   </header>
+  
+  <!-- Navigation -->
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
@@ -19,9 +136,538 @@
       <li><a href="mapping.html">Mapping Systems</a></li>
     </ul>
   </nav>
-  <main>
-    <h2>Computational Design Workflows</h2>
-    <p>Content for Computational Design Workflows will go here.</p>
+  
+  <!-- Main content -->
+  <main style="max-width: 1400px; margin: 0 auto; padding: 48px 32px 48px 32px;">
+    <h2>Exploring Contemporary Artist</h2>
+    <section>
+      <h3>Temporal Structure</h3>
+      <div class="timeline-container">
+        <div id="timeline-chart"></div>
+        <div class="category-legend" id="legend"></div>
+      </div>
+    </section>
+
+    <!-- Add this section for the relational graph -->
+    <section>
+      <h3>Relational Structure</h3>
+      <div class="timeline-container">
+      <div id="relational-graph"></div>
+    </div>
+    </section>    
   </main>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+  d3.csv("relational_fixed.csv").then(function(linksRaw) {
+    const groupMap = {};
+    const nodeMap = new Map();
+  
+    linksRaw.forEach(d => {
+      const name = d.name.trim();
+      const category = d.category.trim();
+      let key = "";
+  
+      if (category === "education") {
+        key = d.education.trim();
+        nodeMap.set(key, { id: key, type: "education" });
+      } else if (category === "nationality") {
+        key = d.nationality.trim();
+        nodeMap.set(key, { id: key, type: "nationality" });
+      } else if (category === "gallery") {
+        key = d.education.trim();
+        nodeMap.set(key, { id: key, type: "gallery" });
+      } else if (category === "exhibition_country") {
+        key = d.nationality.trim();
+        nodeMap.set(key, { id: key, type: "exhibition_country" });
+      }
+  
+      if (!groupMap[key]) groupMap[key] = [];
+      groupMap[key].push(name);
+  
+      // Ensure artist node is added
+      if (!nodeMap.has(name)) {
+        nodeMap.set(name, { id: name, type: "artist" });
+      }
+    });
+  
+    // ==================== BUILD LINKS ====================
+    const links = [];
+    Object.entries(groupMap).forEach(([key, members]) => {
+      for (let i = 0; i < members.length; i++) {
+        links.push({ source: members[i], target: key, type: nodeMap.get(key).type });
+      }
+    });
+  
+    const nodes = Array.from(nodeMap.values());
+  
+    // ==================== COLORS & RADIUS ====================
+    const colorScale = {
+      artist: "#1f77b4",
+      education: "#2ca02c",
+      gallery: "#ff7f0e",
+      nationality: "#9467bd",
+      exhibition_country: "#e377c2"
+    };
+  
+    const radiusScale = {
+      artist: 18,
+      education: 14,
+      gallery: 14,
+      nationality: 14,
+      exhibition_country: 14
+    };
+  
+    // ==================== CANVAS ====================
+    const width = 1200, height = 700;
+    const svg = d3.select("#relational-graph")
+      .html("")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .style("background", "#fafbfc")
+      .style("border-radius", "10px");
+  
+    const zoomGroup = svg.append("g");
+    svg.call(
+      d3.zoom()
+        .scaleExtent([0.5, 4])
+        .on("zoom", event => zoomGroup.attr("transform", event.transform))
+    );
+  
+    const simulation = d3.forceSimulation(nodes)
+      .force("link", d3.forceLink(links).id(d => d.id).distance(100))
+      .force("charge", d3.forceManyBody().strength(-300))
+      .force("center", d3.forceCenter(width / 2, height / 2));
+  
+    // ==================== DRAW LINKS ====================
+    const link = zoomGroup.append("g")
+      .selectAll("line")
+      .data(links)
+      .join("line")
+      .attr("stroke-width", 1.5)
+      .attr("stroke", d => colorScale[d.type] || "#ccc")
+      .attr("stroke-opacity", 0.6);
+  
+    // ==================== DRAW NODES ====================
+    const node = zoomGroup.append("g")
+      .selectAll("g")
+      .data(nodes)
+      .join("g")
+      .attr("class", "node")
+      .call(d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended)
+      );
+  
+    node.append("circle")
+      .attr("r", d => radiusScale[d.type] || 10)
+      .attr("fill", d => colorScale[d.type] || "#ccc")
+      .attr("stroke", "#333")
+      .attr("stroke-width", 1.5);
+  
+    node.append("text")
+      .attr("dy", 4)
+      .attr("x", d => radiusScale[d.type] + 4)
+      .style("font-size", "11px")
+      .style("pointer-events", "none")
+      .text(d => d.id);
+  
+    // ==================== TOOLTIP ====================
+    const tooltip = d3.select("body").append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0)
+      .style("position", "absolute")
+      .style("padding", "6px 10px")
+      .style("background", "#fff")
+      .style("border", "1px solid #ccc")
+      .style("border-radius", "4px")
+      .style("pointer-events", "none")
+      .style("font-size", "12px");
+  
+    const labelMap = {
+      artist: "Artist",
+      education: "Education (School)",
+      gallery: "Gallery",
+      nationality: "Nationality",
+      exhibition_country: "Exhibition Country"
+    };
+  
+    node.on("mouseover", function(event, d) {
+      tooltip.transition().duration(200).style("opacity", 1);
+      tooltip.html(`<strong>${d.id}</strong><br><span style="color:#666">${labelMap[d.type] || "Unknown"}</span>`)
+        .style("left", (event.pageX + 10) + "px")
+        .style("top", (event.pageY - 20) + "px");
+  
+      node.selectAll("circle").transition().duration(200).style("opacity", o => o.id === d.id || links.some(l => (l.source.id === d.id && l.target.id === o.id) || (l.target.id === d.id && l.source.id === o.id)) ? 1 : 0.1);
+      node.selectAll("text").transition().duration(200).style("opacity", o => o.id === d.id || links.some(l => (l.source.id === d.id && l.target.id === o.id) || (l.target.id === d.id && l.source.id === o.id)) ? 1 : 0.1);
+      link.transition().duration(200).style("opacity", l => l.source.id === d.id || l.target.id === d.id ? 1 : 0.05);
+    }).on("mouseout", function() {
+      tooltip.transition().duration(200).style("opacity", 0);
+      node.selectAll("circle").transition().duration(200).style("opacity", 1);
+      node.selectAll("text").transition().duration(200).style("opacity", 1);
+      link.transition().duration(200).style("opacity", 0.6);
+    });
+  
+    simulation.on("tick", () => {
+      link
+        .attr("x1", d => d.source.x)
+        .attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x)
+        .attr("y2", d => d.target.y);
+  
+      node.attr("transform", d => {
+        d.x = Math.max(20, Math.min(width - 20, d.x));
+        d.y = Math.max(20, Math.min(height - 20, d.y));
+        return `translate(${d.x},${d.y})`;
+      });
+    });
+  
+    function dragstarted(event, d) {
+      if (!event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+    }
+    function dragged(event, d) {
+      d.fx = event.x;
+      d.fy = event.y;
+    }
+    function dragended(event, d) {
+      if (!event.active) simulation.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+    }
+  
+    // ==================== LEGEND ====================
+    const legendData = Object.entries(colorScale).map(([type, color]) => ({
+      label: labelMap[type],
+      color
+    }));
+  
+    const legend = svg.append("g")
+      .attr("transform", `translate(${width - 220}, 20)`);
+  
+    legend.selectAll("rect")
+      .data(legendData)
+      .join("rect")
+      .attr("x", 0)
+      .attr("y", (d, i) => i * 22)
+      .attr("width", 14)
+      .attr("height", 14)
+      .attr("fill", d => d.color);
+  
+    legend.selectAll("text")
+      .data(legendData)
+      .join("text")
+      .attr("x", 20)
+      .attr("y", (d, i) => i * 22 + 11)
+      .style("font-size", "13px")
+      .style("fill", "#333")
+      .text(d => d.label);
+  });
+  </script>  
+  <!-- Artwork Modal -->
+  <div class="artwork-modal" id="artworkModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeArtworkModal()">&times;</span>
+      <div class="artist-name" id="modalArtistName"></div>
+      <div class="artwork-title" id="modalArtworkTitle"></div>
+      <img class="artwork-image" id="modalArtworkImage" src="" alt="Artwork">
+    </div>
+  </div>
+  
+  <!-- JavaScript for D3.js visualization -->
+  <script>
+    // ============================================================================
+    // INITIALIZATION
+    // ============================================================================
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      loadArtistTimeline();
+    });
+    
+    // ============================================================================
+    // ARTWORK DATA
+    // ============================================================================
+    
+    const artworkData = {
+      "Jean-Michel BASQUIAT": {
+        title: "Untitled (Skull)",
+        image: "./temporal/1. Skull.jpg"
+      },
+      "Yoshitomo NARA": {
+        title: "In The White Room",
+        image: "./temporal/2. In The White Room .jpg"
+      },
+      "Jeff KOONS": {
+        title: "Balloon Dog",
+        image: "./temporal/3. Balloon Dog.jpg"
+      },
+      "Keith HARING": {
+        title: "Dancing Figures",
+        image: "./temporal/4. Dancing.jpg"
+      },
+      "Damien HIRST": {
+        title: "The Physical Impossibility of Death in the Mind of Someone Living",
+        image: "./temporal/5. Damien Hirst.jpg"
+      },
+      "Takashi MURAKAMI": {
+        title: "My Lonesome Cowboy",
+        image: "./temporal/6. Takashi.jpg"
+      },
+      "Mister": {
+        title: "Harajuku Kiss",
+        image: "./temporal/7. Harajuku Kiss.jpg"
+      },
+      "MADSAKI": {
+        title: "If I Had a Dream",
+        image: "./temporal/8. if i had a dream.jpg"
+      },
+      "Richard PRINCE": {
+        title: "Untitled (Cowboy)",
+        image: "./temporal/9. cowboy.jpg"
+      },
+      "Jonas WOOD": {
+        title: "Interior with Two Chairs",
+        image: "./temporal/10. Jonas Wood.jpg"
+      },
+      "Iwamoto MASAKAZU": {
+        title: "Contemporary Painting",
+        image: "./temporal/11. Iwamoto.jpg"
+      },
+      "Tyler HOBBS": {
+        title: "Generative Art Composition",
+        image: "./temporal/12. Tyler Hobbes.avif"
+      },
+      "Lee UFAN": {
+        title: "Mono-ha Installation",
+        image: "./temporal/13. LEE.jpg"
+      },
+      "KAWS": {
+        title: "Companion",
+        image: "./temporal/14. kaws.jpeg"
+      },
+      "Tom SACHS": {
+        title: "Nutsy's",
+        image: "./temporal/15. Tom.webp"
+      },
+      "Daniel ARSHAM": {
+        title: "Fictional Archeology",
+        image: "./temporal/16. Daniel.webp"
+      }
+    };
+    
+    // ============================================================================
+    // DATA LOADING
+    // ============================================================================
+    
+    function loadArtistTimeline() {
+      d3.csv('temporal.csv')
+        .then(function(data) {
+          console.log('Loaded artist data:', data);
+          createTimelineVisualization(data);
+        })
+        .catch(function(error) {
+          console.error('Error loading CSV:', error);
+        });
+    }
+    
+    // ============================================================================
+    // CHART CREATION
+    // ============================================================================
+    
+    function createTimelineVisualization(data) {
+      // Chart dimensions and margins - increased for better fit
+      const margin = {top: 40, right: 40, bottom: 80, left: 180};
+      const width = 1200 - margin.left - margin.right;
+      const height = 600 - margin.top - margin.bottom;
+      
+      // Clear existing content
+      d3.select("#timeline-chart").html("");
+      
+      // Create SVG container
+      const svg = d3.select("#timeline-chart")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+      
+      // Create scales
+      const scales = createScales(data, width, height);
+      
+      // Add chart elements
+      addAxes(svg, scales, height);
+      addTimelineBars(svg, data, scales);
+      addChartLabels(svg, width, height);
+      
+      // Create legend
+      createLegend(scales.categories, scales.colorScale);
+    }
+    
+    // ============================================================================
+    // SCALE CREATION
+    // ============================================================================
+    
+    function createScales(data, width, height) {
+      // Time scale (X-axis)
+      const timeExtent = d3.extent(data, d => [+d.start, +d.end]).flat();
+      const xScale = d3.scaleLinear()
+        .domain([d3.min(timeExtent), d3.max(timeExtent)])
+        .range([0, width]);
+      
+      // Artist names scale (Y-axis)
+      const yScale = d3.scaleBand()
+        .domain(data.map(d => d.name))
+        .range([0, height])
+        .padding(0.1);
+      
+      // Color scale for categories
+      const categories = [...new Set(data.map(d => d.category))];
+      const colorScale = d3.scaleOrdinal()
+        .domain(categories)
+        .range(d3.schemeCategory10);
+      
+      return { xScale, yScale, colorScale, categories };
+    }
+    
+    // ============================================================================
+    // CHART ELEMENTS
+    // ============================================================================
+    
+    function addAxes(svg, scales, height) {
+      // X-axis (timeline)
+      svg.append("g")
+        .attr("transform", `translate(0,${height})`)
+        .call(d3.axisBottom(scales.xScale).tickFormat(d3.format("d")).ticks(10))
+        .selectAll("text")
+        .style("text-anchor", "middle")
+        .style("font-size", "12px");
+      
+            // Y-axis (artist names)
+      svg.append("g")
+        .call(d3.axisLeft(scales.yScale))
+        .selectAll("text")
+        .style("text-anchor", "end")      // Right-aligns the text
+        .style("font-size", "12px")
+        .attr("dx", "-0.8em")             // Pulls text closer to the axis line
+        .attr("dy", "0.35em")             // Vertically aligns text better
+        .style("cursor", "pointer")        // Shows pointer cursor
+        .on("click", function(event, d) {
+          showArtworkModal(d);
+        });
+    }
+    
+    function addTimelineBars(svg, data, scales) {
+      svg.selectAll(".artist-bar")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "artist-bar")
+        .attr("x", d => scales.xScale(+d.start))
+        .attr("y", d => scales.yScale(d.name))
+        .attr("width", d => scales.xScale(+d.end) - scales.xScale(+d.start))
+        .attr("height", scales.yScale.bandwidth())
+        .attr("fill", d => scales.colorScale(d.category))
+        .attr("stroke", "#333")
+        .attr("stroke-width", 1)
+        .on("mouseover", function(event, d) {
+          showTooltip(event, d);
+        })
+        .on("mouseout", function() {
+          hideTooltip();
+        });
+    }
+    
+    function addChartLabels(svg, width, height) {
+      // Chart title
+      svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", -15)
+        .attr("text-anchor", "middle")
+        .style("font-size", "18px")
+        .style("font-weight", "bold")
+        .text("Artist Timeline Analysis (1968-2025)");
+      
+      // X-axis label
+      svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", height + 40)
+        .attr("text-anchor", "middle")
+        .style("font-size", "14px")
+        .text("Year");
+    }
+    
+    // ============================================================================
+    // INTERACTIVITY
+    // ============================================================================
+    
+    function showTooltip(event, data) {
+      const tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("left", (event.pageX + 10) + "px")
+        .style("top", (event.pageY - 10) + "px");
+      
+      tooltip.html(`
+        <strong>${data.name}</strong><br/>
+        Period: ${data.start} - ${data.end}<br/>
+        Category: ${data.category}<br/>
+        Duration: ${+data.end - +data.start} years
+      `);
+    }
+    
+    function hideTooltip() {
+      d3.selectAll(".tooltip").remove();
+    }
+    
+    // ============================================================================
+    // LEGEND CREATION
+    // ============================================================================
+    
+    function createLegend(categories, colorScale) {
+      const legend = d3.select("#legend");
+      legend.html("");
+      
+      categories.forEach(category => {
+        const item = legend.append("div")
+          .attr("class", "legend-item");
+        
+        item.append("div")
+          .attr("class", "legend-color")
+          .style("background-color", colorScale(category));
+        
+        item.append("span")
+          .text(category);
+      });
+    }
+    
+    // ============================================================================
+    // ARTWORK MODAL FUNCTIONS
+    // ============================================================================
+    
+    function showArtworkModal(artistName) {
+      const artwork = artworkData[artistName];
+      if (artwork) {
+        document.getElementById("modalArtistName").textContent = artistName;
+        document.getElementById("modalArtworkTitle").textContent = artwork.title;
+        document.getElementById("modalArtworkImage").src = artwork.image;
+        document.getElementById("modalArtworkImage").alt = artwork.title;
+        document.getElementById("artworkModal").style.display = "flex";
+      }
+    }
+    
+    function closeArtworkModal() {
+      document.getElementById("artworkModal").style.display = "none";
+    }
+    
+    // Close modal when clicking outside
+    document.addEventListener('click', function(event) {
+      const modal = document.getElementById("artworkModal");
+      if (event.target === modal) {
+        closeArtworkModal();
+      }
+    });
+  </script>
 </body>
 </html> 
+
