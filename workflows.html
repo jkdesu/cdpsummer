@@ -6,6 +6,7 @@
   <title>Design Workflows</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
   
   <!-- Chart-specific styles -->
   <style>
@@ -117,6 +118,25 @@
       height: 12px;
       border-radius: 2px;
     }
+    
+    /* Link box hover effects */
+    .workflow-link-box {
+      background: #f8f9fa;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      min-width: 150px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .workflow-link-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      border-color: #007bff;
+      background: #ffffff;
+    }
   </style>
 </head>
 
@@ -139,22 +159,166 @@
   
   <!-- Main content -->
   <main style="max-width: 1400px; margin: 0 auto; padding: 48px 32px 48px 32px;">
+    <h2>Computational Design Workflows</h2>
+    
+
+    
     <h2>Exploring Contemporary Artist</h2>
+    
+    <!-- Workflow Tools Section -->
     <section>
-      <h3>Temporal Structure</h3>
+      <h3>Design Workflow Tools</h3>
+      <ul>
+        <li><a href="#" onclick="showToolContent('p5js')">p5.js</a></li>
+        <li><a href="#" onclick="showToolContent('threejs')">three.js</a></li>
+        <li><a href="#" onclick="showToolContent('d3js')">d3.js</a></li>
+        <li><a href="#" onclick="showToolContent('mapping')">exploring mapping</a></li>
+      </ul>
+    </section>
+    
+    <!-- Tool Content Sections -->
+    <div id="p5js-content" class="tool-content" style="display: none;">
+      <h3>p5.js: Creative Coding</h3>
+      
+      <!-- First Row of Artworks -->
+      <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px; flex-wrap: wrap; max-width: 1200px; margin-left: auto; margin-right: auto;">
+        <div style="text-align: center;">
+          <div id="p5sketch1" style="width: 280px; height: 280px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">Random Gradient 1</p>
+        </div>
+        
+        <div style="text-align: center;">
+          <div id="p5sketch2" style="width: 280px; height: 280px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">Random Gradient 2</p>
+        </div>
+        
+        <div style="text-align: center;">
+          <div id="p5sketch3" style="width: 280px; height: 280px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">Random Gradient 3</p>
+        </div>
+        
+        <div style="text-align: center;">
+          <div id="p5sketch4" style="width: 280px; height: 280px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">Random Gradient 4</p>
+        </div>
+      </div>
+      
+      <!-- Second Row of Artworks -->
+      <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px; flex-wrap: wrap; max-width: 1200px; margin-left: auto; margin-right: auto;">
+        <div style="text-align: center;">
+          <div id="p5sketch5" style="width: 280px; height: 280px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">Random Gradient 5</p>
+        </div>
+        
+        <div style="text-align: center;">
+          <div id="p5sketch6" style="width: 280px; height: 280px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">Random Gradient 6</p>
+        </div>
+        
+        <div style="text-align: center;">
+          <div id="p5sketch7" style="width: 280px; height: 280px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">Random Gradient 7</p>
+        </div>
+        
+        <div style="text-align: center;">
+          <div id="p5sketch8" style="width: 280px; height: 280px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">Random Gradient 8</p>
+        </div>
+      </div>
+      
+      <!-- Third Row of Artworks -->
+      <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px; flex-wrap: wrap; max-width: 1200px; margin-left: auto; margin-right: auto;">
+        <div style="text-align: center;">
+          <div id="p5sketch9" style="width: 280px; height: 280px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">3D Animated Object 1</p>
+        </div>
+        
+        <div style="text-align: center;">
+          <div id="p5sketch10" style="width: 280px; height: 280px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">3D Animated Object 2</p>
+        </div>
+        
+        <div style="text-align: center;">
+          <div id="p5sketch11" style="width: 280px; height: 280px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">3D Animated Object 3</p>
+        </div>
+        
+        <div style="text-align: center;">
+          <div id="p5sketch12" style="width: 280px; height: 280px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">3D Animated Object 4</p>
+        </div>
+      </div>
+      
+      <!-- Fourth Row of Artworks -->
+      <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px; flex-wrap: wrap; max-width: 1200px; margin-left: auto; margin-right: auto;">
+        <div style="text-align: center;">
+          <div id="p5sketch13" style="width: 280px; height: 280px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">HSB 3D Layers 1</p>
+        </div>
+        
+        <div style="text-align: center;">
+          <div id="p5sketch14" style="width: 280px; height: 280px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">HSB 3D Layers 2</p>
+        </div>
+        
+        <div style="text-align: center;">
+          <div id="p5sketch15" style="width: 280px; height: 280px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">HSB 3D Layers 3</p>
+        </div>
+        
+        <div style="text-align: center;">
+          <div id="p5sketch16" style="width: 280px; height: 280px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">HSB 3D Layers 4</p>
+        </div>
+      </div>
+      
+
+    </div>
+    
+    <div id="threejs-content" class="tool-content" style="display: none;">
+      <h3>Three.js: 3D Graphics</h3>
+      
+      <!-- Three.js Canvases Row -->
+      <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px; flex-wrap: wrap; max-width: 1200px; margin-left: auto; margin-right: auto;">
+        <div style="text-align: center;">
+          <div id="threejs-canvas1" style="width: 380px; height: 380px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">Three.js Scene 1</p>
+        </div>
+        
+        <div style="text-align: center;">
+          <div id="threejs-canvas2" style="width: 380px; height: 380px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">Three.js Scene 2</p>
+        </div>
+        
+        <div style="text-align: center;">
+          <div id="threejs-canvas3" style="width: 380px; height: 380px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          <p style="margin-top: 10px; font-size: 14px; color: #666;">Three.js Scene 3</p>
+        </div>
+      </div>
+    </div>
+    
+    <div id="d3js-content" class="tool-content" style="display: none;">
+      <h3>D3.js: Data Visualization</h3>
+      
+      <h4>Exploring Contemporary Artist</h4>
+      
+      <!-- Temporal Structure -->
       <div class="timeline-container">
+        <h5>Temporal Structure</h5>
         <div id="timeline-chart"></div>
         <div class="category-legend" id="legend"></div>
       </div>
-    </section>
-
-    <!-- Add this section for the relational graph -->
-    <section>
-      <h3>Relational Structure</h3>
+      
+      <!-- Relational Structure -->
       <div class="timeline-container">
-      <div id="relational-graph"></div>
+        <h5>Relational Structure</h5>
+        <div id="relational-graph"></div>
+      </div>
     </div>
-    </section>    
+    
+    <div id="mapping-content" class="tool-content" style="display: none;">
+      <h3>Exploring Mapping: Spatial Analysis</h3>
+    </div>    
   </main>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script>
@@ -667,7 +831,1540 @@
         closeArtworkModal();
       }
     });
+    
+    // ============================================================================
+    // TOOL CONTENT NAVIGATION
+    // ============================================================================
+    
+    function showToolContent(toolName) {
+      // Hide all tool content sections
+      const allToolContent = document.querySelectorAll('.tool-content');
+      allToolContent.forEach(content => {
+        content.style.display = 'none';
+      });
+      
+      // Show the selected tool content
+      const selectedContent = document.getElementById(toolName + '-content');
+      if (selectedContent) {
+        selectedContent.style.display = 'block';
+      }
+    }   
+    
+    // ============================================================================
+    // P5.JS SKETCHES
+    // ============================================================================
+    
+    // Sketch 1
+    new p5(function(p) {
+      let cols, rows;
+      let pixelSize = 40;
+      let c1, c2, c3, c4;
+      
+      p.setup = function() {
+        let canvas = p.createCanvas(280, 280);
+        canvas.parent('p5sketch1');
+        p.noStroke();
+        cols = p.width / pixelSize;
+        rows = p.height / pixelSize;
+        
+        // Pick 4 random corner colors
+        c1 = p.color(p.random(255), p.random(255), p.random(255)); // top-left
+        c2 = p.color(p.random(255), p.random(255), p.random(255)); // top-right
+        c3 = p.color(p.random(255), p.random(255), p.random(255)); // bottom-left
+        c4 = p.color(p.random(255), p.random(255), p.random(255)); // bottom-right
+        
+        drawRandomGradient();
+      };
+      
+      p.draw = function() {
+        // nothing here
+      };
+      
+      function drawRandomGradient() {
+        for (let y = 0; y < rows; y++) {
+          let ty = y / rows;
+          for (let x = 0; x < cols; x++) {
+            let tx = x / cols;
+            
+            // Blend top and bottom colors horizontally
+            let top = p.lerpColor(c1, c2, tx);
+            let bottom = p.lerpColor(c3, c4, tx);
+            let baseColor = p.lerpColor(top, bottom, ty);
+            
+            // Add gentle noise
+            let r = p.red(baseColor) + p.random(-20, 20);
+            let g = p.green(baseColor) + p.random(-20, 20);
+            let b = p.blue(baseColor) + p.random(-20, 20);
+            
+            p.fill(p.constrain(r, 0, 255), p.constrain(g, 0, 255), p.constrain(b, 0, 255));
+            p.rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+          }
+        }
+      }
+    });
+    
+    // Sketch 2
+    new p5(function(p) {
+      let cols, rows;
+      let pixelSize = 40;
+      let c1, c2, c3, c4;
+      
+      p.setup = function() {
+        let canvas = p.createCanvas(280, 280);
+        canvas.parent('p5sketch2');
+        p.noStroke();
+        cols = p.width / pixelSize;
+        rows = p.height / pixelSize;
+        
+        // Pick 4 random corner colors
+        c1 = p.color(p.random(255), p.random(255), p.random(255)); // top-left
+        c2 = p.color(p.random(255), p.random(255), p.random(255)); // top-right
+        c3 = p.color(p.random(255), p.random(255), p.random(255)); // bottom-left
+        c4 = p.color(p.random(255), p.random(255), p.random(255)); // bottom-right
+        
+        drawRandomGradient();
+      };
+      
+      p.draw = function() {
+        // nothing here
+      };
+      
+      function drawRandomGradient() {
+        for (let y = 0; y < rows; y++) {
+          let ty = y / rows;
+          for (let x = 0; x < cols; x++) {
+            let tx = x / cols;
+            
+            // Blend top and bottom colors horizontally
+            let top = p.lerpColor(c1, c2, tx);
+            let bottom = p.lerpColor(c3, c4, tx);
+            let baseColor = p.lerpColor(top, bottom, ty);
+            
+            // Add gentle noise
+            let r = p.red(baseColor) + p.random(-20, 20);
+            let g = p.green(baseColor) + p.random(-20, 20);
+            let b = p.blue(baseColor) + p.random(-20, 20);
+            
+            p.fill(p.constrain(r, 0, 255), p.constrain(g, 0, 255), p.constrain(b, 0, 255));
+            p.rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+          }
+        }
+      }
+    });
+    
+    // Sketch 4
+    new p5(function(p) {
+      let cols, rows;
+      let pixelSize = 40;
+      let c1, c2, c3, c4;
+      
+      p.setup = function() {
+        let canvas = p.createCanvas(280, 280);
+        canvas.parent('p5sketch4');
+        p.noStroke();
+        cols = p.width / pixelSize;
+        rows = p.height / pixelSize;
+        
+        // Pick 4 random corner colors
+        c1 = p.color(p.random(255), p.random(255), p.random(255)); // top-left
+        c2 = p.color(p.random(255), p.random(255), p.random(255)); // top-right
+        c3 = p.color(p.random(255), p.random(255), p.random(255)); // bottom-left
+        c4 = p.color(p.random(255), p.random(255), p.random(255)); // bottom-right
+        
+        drawRandomGradient();
+      };
+      
+      p.draw = function() {
+        // nothing here
+      };
+      
+      function drawRandomGradient() {
+        for (let y = 0; y < rows; y++) {
+          let ty = y / rows;
+          for (let x = 0; x < cols; x++) {
+            let tx = x / cols;
+            
+            // Blend top and bottom colors horizontally
+            let top = p.lerpColor(c1, c2, tx);
+            let bottom = p.lerpColor(c3, c4, tx);
+            let baseColor = p.lerpColor(top, bottom, ty);
+            
+            // Add gentle noise
+            let r = p.red(baseColor) + p.random(-20, 20);
+            let g = p.green(baseColor) + p.random(-20, 20);
+            let b = p.blue(baseColor) + p.random(-20, 20);
+            
+            p.fill(p.constrain(r, 0, 255), p.constrain(g, 0, 255), p.constrain(b, 0, 255));
+            p.rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+          }
+        }
+      }
+    });
+    
+    // Sketch 5
+    new p5(function(p) {
+      let cols, rows;
+      let pixelSize = 40;
+      let c1, c2, c3, c4;
+      
+      p.setup = function() {
+        let canvas = p.createCanvas(280, 280);
+        canvas.parent('p5sketch5');
+        p.noStroke();
+        cols = p.width / pixelSize;
+        rows = p.height / pixelSize;
+        
+        // Pick 4 random corner colors
+        c1 = p.color(p.random(255), p.random(255), p.random(255)); // top-left
+        c2 = p.color(p.random(255), p.random(255), p.random(255)); // top-right
+        c3 = p.color(p.random(255), p.random(255), p.random(255)); // bottom-left
+        c4 = p.color(p.random(255), p.random(255), p.random(255)); // bottom-right
+        
+        drawRandomGradient();
+      };
+      
+      p.draw = function() {
+        // nothing here
+      };
+      
+      function drawRandomGradient() {
+        for (let y = 0; y < rows; y++) {
+          let ty = y / rows;
+          for (let x = 0; x < cols; x++) {
+            let tx = x / cols;
+            
+            // Blend top and bottom colors horizontally
+            let top = p.lerpColor(c1, c2, tx);
+            let bottom = p.lerpColor(c3, c4, tx);
+            let baseColor = p.lerpColor(top, bottom, ty);
+            
+            // Add gentle noise
+            let r = p.red(baseColor) + p.random(-20, 20);
+            let g = p.green(baseColor) + p.random(-20, 20);
+            let b = p.blue(baseColor) + p.random(-20, 20);
+            
+            p.fill(p.constrain(r, 0, 255), p.constrain(g, 0, 255), p.constrain(b, 0, 255));
+            p.rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+          }
+        }
+      }
+    });
+    
+    // Sketch 6
+    new p5(function(p) {
+      let cols, rows;
+      let pixelSize = 40;
+      let c1, c2, c3, c4;
+      
+      p.setup = function() {
+        let canvas = p.createCanvas(280, 280);
+        canvas.parent('p5sketch6');
+        p.noStroke();
+        cols = p.width / pixelSize;
+        rows = p.height / pixelSize;
+        
+        // Pick 4 random corner colors
+        c1 = p.color(p.random(255), p.random(255), p.random(255)); // top-left
+        c2 = p.color(p.random(255), p.random(255), p.random(255)); // top-right
+        c3 = p.color(p.random(255), p.random(255), p.random(255)); // bottom-left
+        c4 = p.color(p.random(255), p.random(255), p.random(255)); // bottom-right
+        
+        drawRandomGradient();
+      };
+      
+      p.draw = function() {
+        // nothing here
+      };
+      
+      function drawRandomGradient() {
+        for (let y = 0; y < rows; y++) {
+          let ty = y / rows;
+          for (let x = 0; x < cols; x++) {
+            let tx = x / cols;
+            
+            // Blend top and bottom colors horizontally
+            let top = p.lerpColor(c1, c2, tx);
+            let bottom = p.lerpColor(c3, c4, tx);
+            let baseColor = p.lerpColor(top, bottom, ty);
+            
+            // Add gentle noise
+            let r = p.red(baseColor) + p.random(-20, 20);
+            let g = p.green(baseColor) + p.random(-20, 20);
+            let b = p.blue(baseColor) + p.random(-20, 20);
+            
+            p.fill(p.constrain(r, 0, 255), p.constrain(g, 0, 255), p.constrain(b, 0, 255));
+            p.rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+          }
+        }
+      }
+    });
+    
+    // Sketch 7
+    new p5(function(p) {
+      let cols, rows;
+      let pixelSize = 40;
+      let c1, c2, c3, c4;
+      
+      p.setup = function() {
+        let canvas = p.createCanvas(280, 280);
+        canvas.parent('p5sketch7');
+        p.noStroke();
+        cols = p.width / pixelSize;
+        rows = p.height / pixelSize;
+        
+        // Pick 4 random corner colors
+        c1 = p.color(p.random(255), p.random(255), p.random(255)); // top-left
+        c2 = p.color(p.random(255), p.random(255), p.random(255)); // top-right
+        c3 = p.color(p.random(255), p.random(255), p.random(255)); // bottom-left
+        c4 = p.color(p.random(255), p.random(255), p.random(255)); // bottom-right
+        
+        drawRandomGradient();
+      };
+      
+      p.draw = function() {
+        // nothing here
+      };
+      
+      function drawRandomGradient() {
+        for (let y = 0; y < rows; y++) {
+          let ty = y / rows;
+          for (let x = 0; x < cols; x++) {
+            let tx = x / cols;
+            
+            // Blend top and bottom colors horizontally
+            let top = p.lerpColor(c1, c2, tx);
+            let bottom = p.lerpColor(c3, c4, tx);
+            let baseColor = p.lerpColor(top, bottom, ty);
+            
+            // Add gentle noise
+            let r = p.red(baseColor) + p.random(-20, 20);
+            let g = p.green(baseColor) + p.random(-20, 20);
+            let b = p.blue(baseColor) + p.random(-20, 20);
+            
+            p.fill(p.constrain(r, 0, 255), p.constrain(g, 0, 255), p.constrain(b, 0, 255));
+            p.rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+          }
+        }
+      }
+    });
+    
+    // Sketch 8
+    new p5(function(p) {
+      let cols, rows;
+      let pixelSize = 40;
+      let c1, c2, c3, c4;
+      
+      p.setup = function() {
+        let canvas = p.createCanvas(280, 280);
+        canvas.parent('p5sketch8');
+        p.noStroke();
+        cols = p.width / pixelSize;
+        rows = p.height / pixelSize;
+        
+        // Pick 4 random corner colors
+        c1 = p.color(p.random(255), p.random(255), p.random(255)); // top-left
+        c2 = p.color(p.random(255), p.random(255), p.random(255)); // top-right
+        c3 = p.color(p.random(255), p.random(255), p.random(255)); // bottom-left
+        c4 = p.color(p.random(255), p.random(255), p.random(255)); // bottom-right
+        
+        drawRandomGradient();
+      };
+      
+      p.draw = function() {
+        // nothing here
+      };
+      
+      function drawRandomGradient() {
+        for (let y = 0; y < rows; y++) {
+          let ty = y / rows;
+          for (let x = 0; x < cols; x++) {
+            let tx = x / cols;
+            
+            // Blend top and bottom colors horizontally
+            let top = p.lerpColor(c1, c2, tx);
+            let bottom = p.lerpColor(c3, c4, tx);
+            let baseColor = p.lerpColor(top, bottom, ty);
+            
+            // Add gentle noise
+            let r = p.red(baseColor) + p.random(-20, 20);
+            let g = p.green(baseColor) + p.random(-20, 20);
+            let b = p.blue(baseColor) + p.random(-20, 20);
+            
+            p.fill(p.constrain(r, 0, 255), p.constrain(g, 0, 255), p.constrain(b, 0, 255));
+            p.rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+          }
+        }
+      }
+    });
+    
+    // Sketch 9 - 3D Animated Object 1
+    new p5(function(p) {
+      let pixelBackground;
+      let pixelSize = 10;
+      
+      p.setup = function() {
+        let canvas = p.createCanvas(280, 280, p.WEBGL);
+        canvas.parent('p5sketch9');
+        p.angleMode(p.DEGREES);
+        
+        // Create a separate 2D graphics buffer for the background
+        pixelBackground = p.createGraphics(280, 280, p.P2D);
+      };
+      
+      p.draw = function() {
+        generatePixelBackground(); // regenerate every frame
+
+        // Draw the pixelated background onto the main canvas
+        p.push();
+        p.resetMatrix(); // reset WEBGL transform
+        p.translate(-140, -140, -500); // move back
+        p.texture(pixelBackground);
+        p.noStroke();
+        p.beginShape();
+        p.vertex(0, 0, 0, 0);
+        p.vertex(280, 0, 1, 0);
+        p.vertex(280, 280, 1, 1);
+        p.vertex(0, 280, 0, 1);
+        p.endShape(p.CLOSE);
+        p.pop();
+        
+        // 3D object
+        p.noFill();
+        p.stroke(255);
+        
+        let x = p.sin(p.frameCount * 2) * 30;
+        let y = p.cos(p.frameCount) * 30;
+        let z = p.sin(p.frameCount * 4) * 30;
+        
+        p.translate(x, y, z);
+        p.rotateX(p.frameCount);
+        p.rotateY(p.frameCount / 2);
+        p.rotateZ(p.frameCount / 4);
+        
+        for (let i = 0; i < 360; i += 10) {
+          p.push();
+          let r = p.map(p.sin(i + p.frameCount), -1, 1, 200, 50);
+          let g = p.map(p.sin(i + p.frameCount / 3), -1, 1, 50, 200);
+          let b = p.map(p.cos(i + p.frameCount / 7), -1, 1, 50, 200); 
+
+          p.stroke(r, g, b);
+          p.rotateY(i / 2);
+          p.ellipse(0, 0, 120);
+          p.pop();
+        }
+      };
+      
+      function generatePixelBackground() {
+        for (let y = 0; y < pixelBackground.height; y += pixelSize) {
+          for (let x = 0; x < pixelBackground.width; x += pixelSize) {
+            let r = p.random(30, 80);
+            let g = p.random(30, 80);
+            let b = p.random(30, 80);
+            pixelBackground.fill(r, g, b);
+            pixelBackground.noStroke();
+            pixelBackground.rect(x, y, pixelSize, pixelSize);
+          }
+        }
+      }
+    });
+    
+    // Sketch 10 - 3D Animated Object 2
+    new p5(function(p) {
+      let pixelBackground;
+      let pixelSize = 40;
+      let cols, rows;
+      let c1, c2, c3, c4;
+      
+      p.setup = function() {
+        let canvas = p.createCanvas(280, 280, p.WEBGL);
+        canvas.parent('p5sketch10');
+        p.angleMode(p.DEGREES);
+
+        // Create gradient buffer
+        pixelBackground = p.createGraphics(280, 280, p.P2D);
+        cols = 280 / pixelSize;
+        rows = 280 / pixelSize;
+
+        // Pick 4 random corner colors
+        c1 = p.color(p.random(255), p.random(255), p.random(255));
+        c2 = p.color(p.random(255), p.random(255), p.random(255));
+        c3 = p.color(p.random(255), p.random(255), p.random(255));
+        c4 = p.color(p.random(255), p.random(255), p.random(255));
+      };
+      
+      p.draw = function() {
+        drawRandomGradient(pixelBackground);
+
+        // Draw gradient texture background
+        p.push();
+        p.resetMatrix(); // reset WEBGL transform
+        p.translate(-140, -140, -500); // push it far behind
+        p.texture(pixelBackground);
+        p.noStroke();
+        p.beginShape();
+        p.vertex(0, 0, 0, 0);
+        p.vertex(280, 0, 1, 0);
+        p.vertex(280, 280, 1, 1);
+        p.vertex(0, 280, 0, 1);
+        p.endShape(p.CLOSE);
+        p.pop();
+
+        // 3D Animated Object
+        p.noFill();
+        p.stroke(255);
+
+        let x = p.sin(p.frameCount * 2) * 30;
+        let y = p.cos(p.frameCount) * 30;
+        let z = p.sin(p.frameCount * 4) * 30;
+
+        p.translate(x, y, z);
+        p.rotateX(p.frameCount);
+        p.rotateY(p.frameCount / 2);
+        p.rotateZ(p.frameCount / 4);
+
+        for (let i = 0; i < 360; i += 10) {
+          p.push();
+          let r = p.map(p.sin(i + p.frameCount), -1, 1, 200, 50);
+          let g = p.map(p.sin(i + p.frameCount / 3), -1, 1, 50, 200);
+          let b = p.map(p.cos(i + p.frameCount / 7), -1, 1, 50, 200);
+
+          p.stroke(r, g, b);
+          p.rotateY(i / 2);
+          p.ellipse(0, 0, 120);
+          p.pop();
+        }
+      };
+      
+      function drawRandomGradient(gfx) {
+        for (let y = 0; y < rows; y++) {
+          let ty = y / rows;
+          for (let x = 0; x < cols; x++) {
+            let tx = x / cols;
+
+            let top = p.lerpColor(c1, c2, tx);
+            let bottom = p.lerpColor(c3, c4, tx);
+            let baseColor = p.lerpColor(top, bottom, ty);
+
+            let r = p.red(baseColor) + p.random(-20, 20);
+            let g = p.green(baseColor) + p.random(-20, 20);
+            let b = p.blue(baseColor) + p.random(-20, 20);
+
+            gfx.noStroke();
+            gfx.fill(p.constrain(r, 0, 255), p.constrain(g, 0, 255), p.constrain(b, 0, 255));
+            gfx.rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+          }
+        }
+      }
+    });
+    
+    // Sketch 11 - 3D Animated Object 3
+    new p5(function(p) {
+      let pixelBackground;
+      let pixelSize = 40;
+      let cols, rows;
+      let c1, c2, c3, c4;
+      
+      p.setup = function() {
+        let canvas = p.createCanvas(280, 280, p.WEBGL);
+        canvas.parent('p5sketch11');
+        p.angleMode(p.DEGREES);
+
+        // Create gradient buffer
+        pixelBackground = p.createGraphics(280, 280, p.P2D);
+        cols = 280 / pixelSize;
+        rows = 280 / pixelSize;
+
+        // Pick 4 random corner colors
+        c1 = p.color(p.random(255), p.random(255), p.random(255));
+        c2 = p.color(p.random(255), p.random(255), p.random(255));
+        c3 = p.color(p.random(255), p.random(255), p.random(255));
+        c4 = p.color(p.random(255), p.random(255), p.random(255));
+      };
+      
+      p.draw = function() {
+        drawRandomGradient(pixelBackground);
+
+        // Draw gradient texture background
+        p.push();
+        p.resetMatrix(); // reset WEBGL transform
+        p.translate(-140, -140, -500); // push it far behind
+        p.texture(pixelBackground);
+        p.noStroke();
+        p.beginShape();
+        p.vertex(0, 0, 0, 0);
+        p.vertex(280, 0, 1, 0);
+        p.vertex(280, 280, 1, 1);
+        p.vertex(0, 280, 0, 1);
+        p.endShape(p.CLOSE);
+        p.pop();
+
+        // 3D Animated Object
+        p.noFill();
+        p.stroke(255);
+
+        let x = p.sin(p.frameCount * 2) * 30;
+        let y = p.cos(p.frameCount) * 30;
+        let z = p.sin(p.frameCount * 4) * 30;
+
+        p.translate(x, y, z);
+        p.rotateX(p.frameCount);
+        p.rotateY(p.frameCount / 2);
+        p.rotateZ(p.frameCount / 4);
+
+        for (let i = 0; i < 360; i += 10) {
+          p.push();
+          let r = p.map(p.sin(i + p.frameCount), -1, 1, 200, 50);
+          let g = p.map(p.sin(i + p.frameCount / 3), -1, 1, 50, 200);
+          let b = p.map(p.cos(i + p.frameCount / 7), -1, 1, 50, 200);
+
+          p.stroke(r, g, b);
+          p.rotateY(i / 2);
+          p.ellipse(0, 0, 120);
+          p.pop();
+        }
+      };
+      
+      function drawRandomGradient(gfx) {
+        for (let y = 0; y < rows; y++) {
+          let ty = y / rows;
+          for (let x = 0; x < cols; x++) {
+            let tx = x / cols;
+
+            let top = p.lerpColor(c1, c2, tx);
+            let bottom = p.lerpColor(c3, c4, tx);
+            let baseColor = p.lerpColor(top, bottom, ty);
+
+            let r = p.red(baseColor) + p.random(-20, 20);
+            let g = p.green(baseColor) + p.random(-20, 20);
+            let b = p.blue(baseColor) + p.random(-20, 20);
+
+            gfx.noStroke();
+            gfx.fill(p.constrain(r, 0, 255), p.constrain(g, 0, 255), p.constrain(b, 0, 255));
+            gfx.rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+          }
+        }
+      }
+    });
+    
+    // Sketch 12 - 3D Animated Object 4
+    new p5(function(p) {
+      let pixelBackground;
+      let pixelSize = 40;
+      let cols, rows;
+      let c1, c2, c3, c4;
+      
+      p.setup = function() {
+        let canvas = p.createCanvas(280, 280, p.WEBGL);
+        canvas.parent('p5sketch12');
+        p.angleMode(p.DEGREES);
+
+        // Create gradient buffer
+        pixelBackground = p.createGraphics(280, 280, p.P2D);
+        cols = 280 / pixelSize;
+        rows = 280 / pixelSize;
+
+        // Pick 4 random corner colors
+        c1 = p.color(p.random(255), p.random(255), p.random(255));
+        c2 = p.color(p.random(255), p.random(255), p.random(255));
+        c3 = p.color(p.random(255), p.random(255), p.random(255));
+        c4 = p.color(p.random(255), p.random(255), p.random(255));
+      };
+      
+      p.draw = function() {
+        drawRandomGradient(pixelBackground);
+
+        // Draw gradient texture background
+        p.push();
+        p.resetMatrix(); // reset WEBGL transform
+        p.translate(-140, -140, -500); // push it far behind
+        p.texture(pixelBackground);
+        p.noStroke();
+        p.beginShape();
+        p.vertex(0, 0, 0, 0);
+        p.vertex(280, 0, 1, 0);
+        p.vertex(280, 280, 1, 1);
+        p.vertex(0, 280, 0, 1);
+        p.endShape(p.CLOSE);
+        p.pop();
+
+        // 3D Animated Object
+        p.noFill();
+        p.stroke(255);
+
+        let x = p.sin(p.frameCount * 2) * 30;
+        let y = p.cos(p.frameCount) * 30;
+        let z = p.sin(p.frameCount * 4) * 30;
+
+        p.translate(x, y, z);
+        p.rotateX(p.frameCount);
+        p.rotateY(p.frameCount / 2);
+        p.rotateZ(p.frameCount / 4);
+
+        for (let i = 0; i < 360; i += 10) {
+          p.push();
+          let r = p.map(p.sin(i + p.frameCount), -1, 1, 200, 50);
+          let g = p.map(p.sin(i + p.frameCount / 3), -1, 1, 50, 200);
+          let b = p.map(p.cos(i + p.frameCount / 7), -1, 1, 50, 200);
+
+          p.stroke(r, g, b);
+          p.rotateY(i / 2);
+          p.ellipse(0, 0, 120);
+          p.pop();
+        }
+      };
+      
+      function drawRandomGradient(gfx) {
+        for (let y = 0; y < rows; y++) {
+          let ty = y / rows;
+          for (let x = 0; x < cols; x++) {
+            let tx = x / cols;
+
+            let top = p.lerpColor(c1, c2, tx);
+            let bottom = p.lerpColor(c3, c4, tx);
+            let baseColor = p.lerpColor(top, bottom, ty);
+
+            let r = p.red(baseColor) + p.random(-20, 20);
+            let g = p.green(baseColor) + p.random(-20, 20);
+            let b = p.blue(baseColor) + p.random(-20, 20);
+
+            gfx.noStroke();
+            gfx.fill(p.constrain(r, 0, 255), p.constrain(g, 0, 255), p.constrain(b, 0, 255));
+            gfx.rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+          }
+        }
+      }
+    });
+    
+    // Sketch 13 - HSB 3D Layers 1
+    new p5(function(p) {
+      let pixelBackground;
+      let pixelSize = 20;
+      let cols, rows;
+      let c1, c2, c3, c4;
+      
+      p.setup = function() {
+        let canvas = p.createCanvas(280, 280, p.WEBGL);
+        canvas.parent('p5sketch13');
+        p.angleMode(p.DEGREES);
+        p.colorMode(p.HSB, 360, 100, 100, 100);
+        p.noFill();
+
+        pixelBackground = p.createGraphics(280, 280, p.P2D);
+        pixelBackground.colorMode(p.HSB, 360, 100, 100, 100);
+
+        cols = 280 / pixelSize;
+        rows = 280 / pixelSize;
+      };
+      
+      p.draw = function() {
+        // Randomize corner colors every frame
+        c1 = p.color(p.random(360), 80, 80);
+        c2 = p.color(p.random(360), 80, 80);
+        c3 = p.color(p.random(360), 80, 80);
+        c4 = p.color(p.random(360), 80, 80);
+        
+        drawPixelatedGradient(pixelBackground);
+
+        // Draw pixel background
+        p.push();
+        p.resetMatrix();
+        p.translate(-140, -140, -500);
+        p.texture(pixelBackground);
+        p.noStroke();
+        p.beginShape();
+        p.vertex(0, 0, 0, 0);
+        p.vertex(280, 0, 1, 0);
+        p.vertex(280, 280, 1, 1);
+        p.vertex(0, 280, 0, 1);
+        p.endShape(p.CLOSE);
+        p.pop();
+
+        // 3D Object
+        p.rotateY(p.frameCount * 0.3);
+        p.rotateX(p.frameCount * 0.2);
+        p.strokeWeight(1.2);
+
+        for (let j = 0; j < 5; j++) {
+          p.push();
+          let zOffset = p.map(j, 0, 5, -100, 100);
+          p.translate(0, 0, zOffset);
+
+          for (let i = 0; i < 360; i += 10) {
+            p.push();
+
+            let hue = (i * 2 + p.frameCount * 2 + j * 30) % 360;
+            let sat = p.map(p.sin(i + p.frameCount / 3), -1, 1, 60, 100);
+            let bri = p.map(p.cos(i + p.frameCount / 5), -1, 1, 60, 100);
+            p.stroke(hue, sat, bri, 80);
+
+            p.rotateY(i + p.frameCount);
+            let radius = 100 + p.sin(p.frameCount + j * 30) * 40;
+            p.ellipse(0, 0, radius, radius / 2);
+
+            p.pop();
+          }
+          p.pop();
+        }
+      };
+      
+      function drawPixelatedGradient(gfx) {
+        for (let y = 0; y < rows; y++) {
+          let ty = y / rows;
+          for (let x = 0; x < cols; x++) {
+            let tx = x / cols;
+
+            let top = p.lerpColor(c1, c2, tx);
+            let bottom = p.lerpColor(c3, c4, tx);
+            let baseColor = p.lerpColor(top, bottom, ty);
+
+            let h = p.hue(baseColor) + p.random(-5, 5);
+            let s = p.saturation(baseColor) + p.random(-10, 10);
+            let b = p.brightness(baseColor) + p.random(-10, 10);
+
+            gfx.noStroke();
+            gfx.fill((h + 360) % 360, p.constrain(s, 0, 100), p.constrain(b, 0, 100));
+            gfx.rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+          }
+        }
+      }
+    });
+    
+    // Sketch 14 - HSB 3D Layers 2
+    new p5(function(p) {
+      let pixelBackground;
+      let pixelSize = 20;
+      let cols, rows;
+      let c1, c2, c3, c4;
+      
+      p.setup = function() {
+        let canvas = p.createCanvas(280, 280, p.WEBGL);
+        canvas.parent('p5sketch14');
+        p.angleMode(p.DEGREES);
+        p.colorMode(p.HSB, 360, 100, 100, 100);
+        p.noFill();
+
+        pixelBackground = p.createGraphics(280, 280, p.P2D);
+        pixelBackground.colorMode(p.HSB, 360, 100, 100, 100);
+
+        cols = 280 / pixelSize;
+        rows = 280 / pixelSize;
+      };
+      
+      p.draw = function() {
+        // Randomize corner colors every frame
+        c1 = p.color(p.random(360), 80, 80);
+        c2 = p.color(p.random(360), 80, 80);
+        c3 = p.color(p.random(360), 80, 80);
+        c4 = p.color(p.random(360), 80, 80);
+        
+        drawPixelatedGradient(pixelBackground);
+
+        // Draw pixel background
+        p.push();
+        p.resetMatrix();
+        p.translate(-140, -140, -500);
+        p.texture(pixelBackground);
+        p.noStroke();
+        p.beginShape();
+        p.vertex(0, 0, 0, 0);
+        p.vertex(280, 0, 1, 0);
+        p.vertex(280, 280, 1, 1);
+        p.vertex(0, 280, 0, 1);
+        p.endShape(p.CLOSE);
+        p.pop();
+
+        // 3D Object
+        p.rotateY(p.frameCount * 0.3);
+        p.rotateX(p.frameCount * 0.2);
+        p.strokeWeight(1.2);
+
+        for (let j = 0; j < 5; j++) {
+          p.push();
+          let zOffset = p.map(j, 0, 5, -100, 100);
+          p.translate(0, 0, zOffset);
+
+          for (let i = 0; i < 360; i += 10) {
+            p.push();
+
+            let hue = (i * 2 + p.frameCount * 2 + j * 30) % 360;
+            let sat = p.map(p.sin(i + p.frameCount / 3), -1, 1, 60, 100);
+            let bri = p.map(p.cos(i + p.frameCount / 5), -1, 1, 60, 100);
+            p.stroke(hue, sat, bri, 80);
+
+            p.rotateY(i + p.frameCount);
+            let radius = 100 + p.sin(p.frameCount + j * 30) * 40;
+            p.ellipse(0, 0, radius, radius / 2);
+
+            p.pop();
+          }
+          p.pop();
+        }
+      };
+      
+      function drawPixelatedGradient(gfx) {
+        for (let y = 0; y < rows; y++) {
+          let ty = y / rows;
+          for (let x = 0; x < cols; x++) {
+            let tx = x / cols;
+
+            let top = p.lerpColor(c1, c2, tx);
+            let bottom = p.lerpColor(c3, c4, tx);
+            let baseColor = p.lerpColor(top, bottom, ty);
+
+            let h = p.hue(baseColor) + p.random(-5, 5);
+            let s = p.saturation(baseColor) + p.random(-10, 10);
+            let b = p.brightness(baseColor) + p.random(-10, 10);
+
+            gfx.noStroke();
+            gfx.fill((h + 360) % 360, p.constrain(s, 0, 100), p.constrain(b, 0, 100));
+            gfx.rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+          }
+        }
+      }
+    });
+    
+    // Sketch 15 - HSB 3D Layers 3
+    new p5(function(p) {
+      let pixelBackground;
+      let pixelSize = 20;
+      let cols, rows;
+      let c1, c2, c3, c4;
+      
+      p.setup = function() {
+        let canvas = p.createCanvas(280, 280, p.WEBGL);
+        canvas.parent('p5sketch15');
+        p.angleMode(p.DEGREES);
+        p.colorMode(p.HSB, 360, 100, 100, 100);
+        p.noFill();
+
+        pixelBackground = p.createGraphics(280, 280, p.P2D);
+        pixelBackground.colorMode(p.HSB, 360, 100, 100, 100);
+
+        cols = 280 / pixelSize;
+        rows = 280 / pixelSize;
+      };
+      
+      p.draw = function() {
+        // Randomize corner colors every frame
+        c1 = p.color(p.random(360), 80, 80);
+        c2 = p.color(p.random(360), 80, 80);
+        c3 = p.color(p.random(360), 80, 80);
+        c4 = p.color(p.random(360), 80, 80);
+        
+        drawPixelatedGradient(pixelBackground);
+
+        // Draw pixel background
+        p.push();
+        p.resetMatrix();
+        p.translate(-140, -140, -500);
+        p.texture(pixelBackground);
+        p.noStroke();
+        p.beginShape();
+        p.vertex(0, 0, 0, 0);
+        p.vertex(280, 0, 1, 0);
+        p.vertex(280, 280, 1, 1);
+        p.vertex(0, 280, 0, 1);
+        p.endShape(p.CLOSE);
+        p.pop();
+
+        // 3D Object
+        p.rotateY(p.frameCount * 0.3);
+        p.rotateX(p.frameCount * 0.2);
+        p.strokeWeight(1.2);
+
+        for (let j = 0; j < 5; j++) {
+          p.push();
+          let zOffset = p.map(j, 0, 5, -100, 100);
+          p.translate(0, 0, zOffset);
+
+          for (let i = 0; i < 360; i += 10) {
+            p.push();
+
+            let hue = (i * 2 + p.frameCount * 2 + j * 30) % 360;
+            let sat = p.map(p.sin(i + p.frameCount / 3), -1, 1, 60, 100);
+            let bri = p.map(p.cos(i + p.frameCount / 5), -1, 1, 60, 100);
+            p.stroke(hue, sat, bri, 80);
+
+            p.rotateY(i + p.frameCount);
+            let radius = 100 + p.sin(p.frameCount + j * 30) * 40;
+            p.ellipse(0, 0, radius, radius / 2);
+
+            p.pop();
+          }
+          p.pop();
+        }
+      };
+      
+      function drawPixelatedGradient(gfx) {
+        for (let y = 0; y < rows; y++) {
+          let ty = y / rows;
+          for (let x = 0; x < cols; x++) {
+            let tx = x / cols;
+
+            let top = p.lerpColor(c1, c2, tx);
+            let bottom = p.lerpColor(c3, c4, tx);
+            let baseColor = p.lerpColor(top, bottom, ty);
+
+            let h = p.hue(baseColor) + p.random(-5, 5);
+            let s = p.saturation(baseColor) + p.random(-10, 10);
+            let b = p.brightness(baseColor) + p.random(-10, 10);
+
+            gfx.noStroke();
+            gfx.fill((h + 360) % 360, p.constrain(s, 0, 100), p.constrain(b, 0, 100));
+            gfx.rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+          }
+        }
+      }
+    });
+    
+    // Sketch 16 - HSB 3D Layers 4
+    new p5(function(p) {
+      let pixelBackground;
+      let pixelSize = 20;
+      let cols, rows;
+      let c1, c2, c3, c4;
+      
+      p.setup = function() {
+        let canvas = p.createCanvas(280, 280, p.WEBGL);
+        canvas.parent('p5sketch16');
+        p.angleMode(p.DEGREES);
+        p.colorMode(p.HSB, 360, 100, 100, 100);
+        p.noFill();
+
+        pixelBackground = p.createGraphics(280, 280, p.P2D);
+        pixelBackground.colorMode(p.HSB, 360, 100, 100, 100);
+
+        cols = 280 / pixelSize;
+        rows = 280 / pixelSize;
+      };
+      
+      p.draw = function() {
+        // Randomize corner colors every frame
+        c1 = p.color(p.random(360), 80, 80);
+        c2 = p.color(p.random(360), 80, 80);
+        c3 = p.color(p.random(360), 80, 80);
+        c4 = p.color(p.random(360), 80, 80);
+        
+        drawPixelatedGradient(pixelBackground);
+
+        // Draw pixel background
+        p.push();
+        p.resetMatrix();
+        p.translate(-140, -140, -500);
+        p.texture(pixelBackground);
+        p.noStroke();
+        p.beginShape();
+        p.vertex(0, 0, 0, 0);
+        p.vertex(280, 0, 1, 0);
+        p.vertex(280, 280, 1, 1);
+        p.vertex(0, 280, 0, 1);
+        p.endShape(p.CLOSE);
+        p.pop();
+
+        // 3D Object
+        p.rotateY(p.frameCount * 0.3);
+        p.rotateX(p.frameCount * 0.2);
+        p.strokeWeight(1.2);
+
+        for (let j = 0; j < 5; j++) {
+          p.push();
+          let zOffset = p.map(j, 0, 5, -100, 100);
+          p.translate(0, 0, zOffset);
+
+          for (let i = 0; i < 360; i += 10) {
+            p.push();
+
+            let hue = (i * 2 + p.frameCount * 2 + j * 30) % 360;
+            let sat = p.map(p.sin(i + p.frameCount / 3), -1, 1, 60, 100);
+            let bri = p.map(p.cos(i + p.frameCount / 5), -1, 1, 60, 100);
+            p.stroke(hue, sat, bri, 80);
+
+            p.rotateY(i + p.frameCount);
+            let radius = 100 + p.sin(p.frameCount + j * 30) * 40;
+            p.ellipse(0, 0, radius, radius / 2);
+
+            p.pop();
+          }
+          p.pop();
+        }
+      };
+      
+      function drawPixelatedGradient(gfx) {
+        for (let y = 0; y < rows; y++) {
+          let ty = y / rows;
+          for (let x = 0; x < cols; x++) {
+            let tx = x / cols;
+
+            let top = p.lerpColor(c1, c2, tx);
+            let bottom = p.lerpColor(c3, c4, tx);
+            let baseColor = p.lerpColor(top, bottom, ty);
+
+            let h = p.hue(baseColor) + p.random(-5, 5);
+            let s = p.saturation(baseColor) + p.random(-10, 10);
+            let b = p.brightness(baseColor) + p.random(-10, 10);
+
+            gfx.noStroke();
+            gfx.fill((h + 360) % 360, p.constrain(s, 0, 100), p.constrain(b, 0, 100));
+            gfx.rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+          }
+        }
+      }
+    });
+    
+
+    
+    // Sketch 3
+    new p5(function(p) {
+      let cols, rows;
+      let pixelSize = 40;
+      let c1, c2, c3, c4;
+      
+      p.setup = function() {
+        let canvas = p.createCanvas(280, 280);
+        canvas.parent('p5sketch3');
+        p.noStroke();
+        cols = p.width / pixelSize;
+        rows = p.height / pixelSize;
+        
+        // Pick 4 random corner colors
+        c1 = p.color(p.random(255), p.random(255), p.random(255)); // top-left
+        c2 = p.color(p.random(255), p.random(255), p.random(255)); // top-right
+        c3 = p.color(p.random(255), p.random(255), p.random(255)); // bottom-left
+        c4 = p.color(p.random(255), p.random(255), p.random(255)); // bottom-right
+        
+        drawRandomGradient();
+      };
+      
+      p.draw = function() {
+        // nothing here
+      };
+      
+      function drawRandomGradient() {
+        for (let y = 0; y < rows; y++) {
+          let ty = y / rows;
+          for (let x = 0; x < cols; x++) {
+            let tx = x / cols;
+            
+            // Blend top and bottom colors horizontally
+            let top = p.lerpColor(c1, c2, tx);
+            let bottom = p.lerpColor(c3, c4, tx);
+            let baseColor = p.lerpColor(top, bottom, ty);
+            
+            // Add gentle noise
+            let r = p.red(baseColor) + p.random(-20, 20);
+            let g = p.green(baseColor) + p.random(-20, 20);
+            let b = p.blue(baseColor) + p.random(-20, 20);
+            
+            p.fill(p.constrain(r, 0, 255), p.constrain(g, 0, 255), p.constrain(b, 0, 255));
+            p.rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+          }
+        }
+      }
+    });
+
+  </script>
+  
+  <!-- Three.js Library and Scenes -->
+  <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js';
+    
+    // Three.js Scene 1
+    let scene1, camera1, renderer1;
+    let rings1 = [];
+    let time1 = 0;
+
+    function initThreeJS1() {
+      const container = document.getElementById('threejs-canvas1');
+      if (!container) return;
+
+      scene1 = new THREE.Scene();
+      camera1 = new THREE.PerspectiveCamera(60, 380 / 380, 0.1, 1000);
+      camera1.position.z = 200;
+
+      renderer1 = new THREE.WebGLRenderer({ antialias: true });
+      renderer1.setSize(380, 380);
+      container.appendChild(renderer1.domElement);
+
+      // Pixelated Gradient Background Plane
+      const bgGeometry = new THREE.PlaneGeometry(2, 2);
+      const bgMaterial = new THREE.ShaderMaterial({
+        uniforms: {
+          time: { value: 0 },
+          resolution: { value: new THREE.Vector2(380, 380) }
+        },
+        vertexShader: `
+          void main() {
+            gl_Position = vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform float time;
+          uniform vec2 resolution;
+
+          float random(vec2 st) {
+            return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
+          }
+
+          void main() {
+            vec2 st = gl_FragCoord.xy / resolution.xy;
+            float pixelSize = 0.04; // smaller = finer
+
+            st = floor(st / pixelSize) * pixelSize;
+
+            vec3 color1 = vec3(1.0, 0.5, 0.5);
+            vec3 color2 = vec3(0.5, 0.8, 1.0);
+            vec3 color3 = vec3(0.7, 1.0, 0.6);
+            vec3 color4 = vec3(1.0, 0.9, 0.3);
+
+            vec3 top = mix(color1, color2, st.x);
+            vec3 bottom = mix(color3, color4, st.x);
+            vec3 base = mix(top, bottom, st.y);
+
+            // subtle noise
+            float noise = random(st + time * 0.05) * 0.2;
+            base += noise;
+
+            gl_FragColor = vec4(base, 1.0);
+          }
+        `,
+        depthWrite: false,
+        depthTest: false,
+        transparent: false
+      });
+
+      const bgMesh = new THREE.Mesh(bgGeometry, bgMaterial);
+      bgMesh.frustumCulled = false;
+      scene1.add(bgMesh);
+
+      // Add rings
+      const ringCount = 5;
+      for (let j = 0; j < ringCount; j++) {
+        const group = new THREE.Group();
+
+        for (let i = 0; i < 360; i += 10) {
+          const radius = 50 + j * 10;
+          const geo = new THREE.TorusGeometry(radius, 1.5, 8, 64);
+          const mat = new THREE.MeshBasicMaterial({ color: new THREE.Color(`hsl(${(i * 2 + j * 30) % 360}, 100%, 60%)`) });
+          const mesh = new THREE.Mesh(geo, mat);
+          mesh.rotation.y = THREE.MathUtils.degToRad(i);
+          group.add(mesh);
+        }
+
+        group.position.z = -50 + j * 25;
+        rings1.push(group);
+        scene1.add(group);
+      }
+
+      animate1();
+    }
+
+    function animate1() {
+      requestAnimationFrame(animate1);
+      time1 += 1;
+
+      // Update pixel background shader
+      if (scene1 && scene1.children[0]) {
+        scene1.children[0].material.uniforms.time.value = time1;
+      }
+
+      // Rotate rings & animate color
+      rings1.forEach((group, j) => {
+        group.rotation.y += 0.01;
+        group.rotation.x += 0.005;
+
+        group.children.forEach((mesh, i) => {
+          const hue = (i * 2 + time1 * 0.5 + j * 30) % 360;
+          mesh.material.color.setHSL(hue / 360, 1, 0.6);
+        });
+      });
+
+      if (renderer1 && scene1 && camera1) {
+        renderer1.render(scene1, camera1);
+      }
+    }
+
+
+
+    // Three.js Scene 2
+    let scene2, camera2, renderer2;
+    let ellipseGroups2 = [];
+    let time2 = 0;
+
+    function initThreeJS2() {
+      const container = document.getElementById('threejs-canvas2');
+      if (!container) return;
+
+      scene2 = new THREE.Scene();
+      camera2 = new THREE.PerspectiveCamera(60, 380 / 380, 0.1, 1000);
+      camera2.position.z = 200;
+
+      renderer2 = new THREE.WebGLRenderer({ antialias: true });
+      renderer2.setSize(380, 380);
+      container.appendChild(renderer2.domElement);
+
+      // Pixelated Gradient Background Shader
+      const bgGeometry = new THREE.PlaneGeometry(2, 2);
+      const bgMaterial = new THREE.ShaderMaterial({
+        uniforms: {
+          time: { value: 0 },
+          resolution: { value: new THREE.Vector2(380, 380) }
+        },
+        vertexShader: `
+          void main() {
+            gl_Position = vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform float time;
+          uniform vec2 resolution;
+
+          float random(vec2 st) {
+            return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
+          }
+
+          void main() {
+            vec2 st = gl_FragCoord.xy / resolution.xy;
+            float pixelSize = 0.04;
+
+            st = floor(st / pixelSize) * pixelSize;
+
+            vec3 color1 = vec3(1.0, 0.5, 0.5);
+            vec3 color2 = vec3(0.5, 0.8, 1.0);
+            vec3 color3 = vec3(0.7, 1.0, 0.6);
+            vec3 color4 = vec3(1.0, 0.9, 0.3);
+
+            vec3 top = mix(color1, color2, st.x);
+            vec3 bottom = mix(color3, color4, st.x);
+            vec3 base = mix(top, bottom, st.y);
+
+            float noise = random(st + time * 0.05) * 0.2;
+            base += noise;
+
+            gl_FragColor = vec4(base, 1.0);
+          }
+        `,
+        depthWrite: false,
+        depthTest: false
+      });
+
+      const bgMesh = new THREE.Mesh(bgGeometry, bgMaterial);
+      bgMesh.frustumCulled = false;
+      scene2.add(bgMesh);
+
+      // Create ellipse rings
+      const groupCount = 5;
+      for (let j = 0; j < groupCount; j++) {
+        const group = new THREE.Group();
+
+        for (let i = 0; i < 360; i += 10) {
+          const geometry = new THREE.CircleGeometry(1, 64); // Circle, will scale to ellipse
+          const material = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.8, side: THREE.DoubleSide });
+          const ellipse = new THREE.Mesh(geometry, material);
+
+          const angle = THREE.MathUtils.degToRad(i);
+          const radius = 60 + j * 10;
+
+          // Position around a ring
+          ellipse.position.x = Math.cos(angle) * radius;
+          ellipse.position.y = Math.sin(angle) * radius;
+          ellipse.position.z = -50 + j * 25;
+
+          // Make it look like an ellipse by squishing the Y axis
+          ellipse.scale.set(10, 5, 1);
+
+          group.add(ellipse);
+        }
+
+        ellipseGroups2.push(group);
+        scene2.add(group);
+      }
+
+      animate2();
+    }
+
+    function animate2() {
+      requestAnimationFrame(animate2);
+      time2 += 1;
+
+      // Update pixel background
+      if (scene2 && scene2.children[0]) {
+        scene2.children[0].material.uniforms.time.value = time2;
+      }
+
+      // Animate ellipses
+      ellipseGroups2.forEach((group, j) => {
+        group.rotation.y += 0.01;
+        group.rotation.x += 0.005;
+
+        group.children.forEach((mesh, i) => {
+          const hue = (i * 2 + time2 * 0.5 + j * 30) % 360;
+          const color = new THREE.Color();
+          color.setHSL(hue / 360, 1, 0.6);
+          mesh.material.color.set(color);
+        });
+      });
+
+      if (renderer2 && scene2 && camera2) {
+        renderer2.render(scene2, camera2);
+      }
+    }
+
+    // Initialize when Three.js content is shown
+    function initThreeJSContent() {
+      const threeJSContent = document.getElementById('threejs-content');
+      if (threeJSContent && threeJSContent.style.display !== 'none') {
+        setTimeout(() => {
+          initThreeJS1();
+          initThreeJS2();
+        }, 100);
+      }
+    }
+
+    // Watch for content changes
+    const observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+          if (mutation.target.id === 'threejs-content' && mutation.target.style.display !== 'none') {
+            setTimeout(() => {
+              initThreeJS1();
+              initThreeJS2();
+              initThreeJS3();
+            }, 100);
+          }
+        }
+      });
+    });
+
+    // Three.js Scene 3
+    let scene3, camera3, renderer3;
+    let rectangleGroups3 = [];
+    let time3 = 0;
+
+    function initThreeJS3() {
+      const container = document.getElementById('threejs-canvas3');
+      if (!container) return;
+
+      scene3 = new THREE.Scene();
+      camera3 = new THREE.PerspectiveCamera(60, 380 / 380, 0.1, 1000);
+      camera3.position.z = 200;
+
+      renderer3 = new THREE.WebGLRenderer({ antialias: true });
+      renderer3.setSize(380, 380);
+      container.appendChild(renderer3.domElement);
+
+      // Pixelated Background Shader
+      const bgGeometry = new THREE.PlaneGeometry(2, 2);
+      const bgMaterial = new THREE.ShaderMaterial({
+        uniforms: {
+          time: { value: 0 },
+          resolution: { value: new THREE.Vector2(380, 380) }
+        },
+        vertexShader: `
+          void main() {
+            gl_Position = vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform float time;
+          uniform vec2 resolution;
+
+          float random(vec2 st) {
+            return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
+          }
+
+          void main() {
+            vec2 st = gl_FragCoord.xy / resolution.xy;
+            float pixelSize = 0.04;
+
+            st = floor(st / pixelSize) * pixelSize;
+
+            vec3 color1 = vec3(1.0, 0.5, 0.5);
+            vec3 color2 = vec3(0.5, 0.8, 1.0);
+            vec3 color3 = vec3(0.7, 1.0, 0.6);
+            vec3 color4 = vec3(1.0, 0.9, 0.3);
+
+            vec3 top = mix(color1, color2, st.x);
+            vec3 bottom = mix(color3, color4, st.x);
+            vec3 base = mix(top, bottom, st.y);
+
+            float noise = random(st + time * 0.05) * 0.2;
+            base += noise;
+
+            gl_FragColor = vec4(base, 1.0);
+          }
+        `,
+        depthWrite: false,
+        depthTest: false
+      });
+
+      const bgMesh = new THREE.Mesh(bgGeometry, bgMaterial);
+      bgMesh.frustumCulled = false;
+      scene3.add(bgMesh);
+
+      // Create rectangle rings
+      const groupCount = 5;
+      for (let j = 0; j < groupCount; j++) {
+        const group = new THREE.Group();
+
+        for (let i = 0; i < 360; i += 10) {
+          const geometry = new THREE.PlaneGeometry(8, 20); // Flat rectangle
+          const material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide, transparent: true, opacity: 0.9 });
+          const rect = new THREE.Mesh(geometry, material);
+
+          const angle = THREE.MathUtils.degToRad(i);
+          const radius = 60 + j * 10;
+
+          // Position it in a circle
+          rect.position.x = Math.cos(angle) * radius;
+          rect.position.y = Math.sin(angle) * radius;
+          rect.position.z = -50 + j * 25;
+
+          // Make it face outward
+          rect.lookAt(0, 0, rect.position.z);
+
+          group.add(rect);
+        }
+
+        rectangleGroups3.push(group);
+        scene3.add(group);
+      }
+
+      animate3();
+    }
+
+    function animate3() {
+      requestAnimationFrame(animate3);
+      time3 += 1;
+
+      // Animate background
+      if (scene3 && scene3.children[0]) {
+        scene3.children[0].material.uniforms.time.value = time3;
+      }
+
+      // Animate rectangles
+      rectangleGroups3.forEach((group, j) => {
+        group.rotation.y += 0.01;
+        group.rotation.x += 0.005;
+
+        group.children.forEach((mesh, i) => {
+          const hue = (i * 2 + time3 * 0.5 + j * 30) % 360;
+          const color = new THREE.Color();
+          color.setHSL(hue / 360, 1, 0.6);
+          mesh.material.color.set(color);
+        });
+      });
+
+      if (renderer3 && scene3 && camera3) {
+        renderer3.render(scene3, camera3);
+      }
+    }
+
+
+
+    // Start observing
+    if (document.getElementById('threejs-content')) {
+      observer.observe(document.getElementById('threejs-content'), { attributes: true });
+    }
   </script>
 </body>
 </html> 
-
