@@ -1,0 +1,64 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "home",
+      "properties": {
+        "name": "Home",
+        "time": "7:00 AM",
+        "activity": "Wake up and get ready",
+        "duration": "1 hour"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.9810, 40.7680]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "columbia",
+      "properties": {
+        "name": "Columbia University",
+        "time": "9:00 AM",
+        "activity": "Classes and lectures",
+        "duration": "4 hours"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.9626, 40.8075]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "study-session",
+      "properties": {
+        "name": "Study Session",
+        "time": "2:00 PM",
+        "activity": "Research and study",
+        "duration": "3 hours"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.9630, 40.8060]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "daily-route",
+      "properties": {
+        "name": "Daily Route",
+        "description": "My typical daily routine path"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-73.9810, 40.7680],
+          [-73.9626, 40.8075],
+          [-73.9630, 40.8060],
+          [-73.9810, 40.7680]
+        ]
+      }
+    }
+  ]
+}
