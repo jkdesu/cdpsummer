@@ -171,6 +171,7 @@
         <li><a href="#" onclick="showToolContent('threejs')">three.js</a></li>
         <li><a href="#" onclick="showToolContent('d3js')">d3.js</a></li>
         <li><a href="#" onclick="showToolContent('mapping')">mapbox</a></li>
+        <li><a href="#" onclick="showToolContent('firebasepoll')">firebase: poll-app</a></li>
       </ul>
     </section>
     
@@ -3145,5 +3146,240 @@
     }
 
   </script>
+
+  <!-- Firebase Poll App Content Section (hidden by default) -->
+  <div id="firebasepoll-content" class="tool-content" style="display: none; max-width: 500px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 32px 24px;">
+    <div id="poll-section-firebase">
+      <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 18px;">Can I be your favorite person?</h3>
+      <form id="poll-form-firebase" style="margin-bottom: 18px;">
+        <input type="radio" name="student" value="Yes" id="yes-firebase" style="margin-right: 6px;" />
+        <label for="yes-firebase" style="margin-right: 18px; font-size: 1rem;">Yes</label>
+        <input type="radio" name="student" value="No" id="no-firebase" style="margin-right: 6px;" />
+        <label for="no-firebase" style="font-size: 1rem;">No</label>
+        <br />
+        <button type="submit" style="margin-top: 16px; padding: 8px 20px; background: #1f77b4; color: #fff; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer;">Vote</button>
+      </form>
+      <div id="poll-results-firebase" style="margin-top: 16px; font-size: 1rem;"></div>
+
+      <hr style="margin: 32px 0; border: none; border-top: 1px solid #eee;" />
+
+      <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 18px;">How are you doing?</h3>
+      <form id="howareyou-form-firebase" style="margin-bottom: 18px;">
+        <input type="radio" name="howareyou" value="Good" id="good-firebase" style="margin-right: 6px;" />
+        <label for="good-firebase" style="margin-right: 18px; font-size: 1rem;">Good</label>
+        <input type="radio" name="howareyou" value="Okay" id="okay-firebase" style="margin-right: 6px;" />
+        <label for="okay-firebase" style="margin-right: 18px; font-size: 1rem;">Okay</label>
+        <input type="radio" name="howareyou" value="Tired" id="tired-firebase" style="margin-right: 6px;" />
+        <label for="tired-firebase" style="margin-right: 18px; font-size: 1rem;">Tired</label>
+        <input type="radio" name="howareyou" value="Others" id="others-firebase" style="margin-right: 6px;" />
+        <label for="others-firebase" style="font-size: 1rem;">Others</label>
+        <br />
+        <button type="submit" style="margin-top: 16px; padding: 8px 20px; background: #1f77b4; color: #fff; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer;">Vote</button>
+      </form>
+      <div id="howareyou-results-firebase" style="margin-top: 16px; font-size: 1rem;"></div>
+
+      <hr style="margin: 32px 0; border: none; border-top: 1px solid #eee;" />
+
+      <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 18px;">What motivates you the most?</h3>
+      <form id="motivation-form-firebase" style="margin-bottom: 18px;">
+        <div style="margin-bottom: 10px;">
+          <input type="radio" name="motivation" value="Personal Passion" id="motivation-passion" style="margin-right: 8px;" />
+          <label for="motivation-passion" style="font-size: 1rem;">Personal Passion</label>
+        </div>
+        <div style="margin-bottom: 10px;">
+          <input type="radio" name="motivation" value="Financial Reward" id="motivation-financial" style="margin-right: 8px;" />
+          <label for="motivation-financial" style="font-size: 1rem;">Financial Reward</label>
+        </div>
+        <div style="margin-bottom: 10px;">
+          <input type="radio" name="motivation" value="Public Recognition" id="motivation-recognition" style="margin-right: 8px;" />
+          <label for="motivation-recognition" style="font-size: 1rem;">Public Recognition</label>
+        </div>
+        <div style="margin-bottom: 10px;">
+          <input type="radio" name="motivation" value="Collaboration with Others" id="motivation-collaboration" style="margin-right: 8px;" />
+          <label for="motivation-collaboration" style="font-size: 1rem;">Collaboration with Others</label>
+        </div>
+        <button type="submit" style="margin-top: 8px; padding: 8px 20px; background: #1f77b4; color: #fff; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer;">Vote</button>
+      </form>
+      <div id="motivation-results-firebase" style="margin-top: 16px; font-size: 1rem;"></div>
+
+      <hr style="margin: 32px 0; border: none; border-top: 1px solid #eee;" />
+
+      <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 18px;">Which method of data collection do you trust the most?</h3>
+      <form id="datatrust-form-firebase" style="margin-bottom: 18px;">
+        <div style="margin-bottom: 10px;">
+          <input type="radio" name="datatrust" value="Surveys" id="datatrust-surveys" style="margin-right: 8px;" />
+          <label for="datatrust-surveys" style="font-size: 1rem;">Surveys</label>
+        </div>
+        <div style="margin-bottom: 10px;">
+          <input type="radio" name="datatrust" value="Interviews" id="datatrust-interviews" style="margin-right: 8px;" />
+          <label for="datatrust-interviews" style="font-size: 1rem;">Interviews</label>
+        </div>
+        <div style="margin-bottom: 10px;">
+          <input type="radio" name="datatrust" value="Observations" id="datatrust-observations" style="margin-right: 8px;" />
+          <label for="datatrust-observations" style="font-size: 1rem;">Observations</label>
+        </div>
+        <div style="margin-bottom: 10px;">
+          <input type="radio" name="datatrust" value="Sensor/IoT Data" id="datatrust-sensor" style="margin-right: 8px;" />
+          <label for="datatrust-sensor" style="font-size: 1rem;">Sensor/IoT Data</label>
+        </div>
+        <div style="margin-bottom: 10px;">
+          <input type="radio" name="datatrust" value="Web & App Analytics" id="datatrust-analytics" style="margin-right: 8px;" />
+          <label for="datatrust-analytics" style="font-size: 1rem;">Web & App Analytics</label>
+        </div>
+        <button type="submit" style="margin-top: 8px; padding: 8px 20px; background: #1f77b4; color: #fff; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer;">Vote</button>
+      </form>
+      <div id="datatrust-results-firebase" style="margin-top: 16px; font-size: 1rem;"></div>
+    </div>
+    <!-- Firebase SDK and poll logic -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyATihgXVJqhja1rZPE0rL06y83MR5fS-dc",
+        authDomain: "poll-tutorial-6726b.firebaseapp.com",
+        projectId: "poll-tutorial-6726b",
+        storageBucket: "poll-tutorial-6726b.firebasestorage.app",
+        messagingSenderId: "1013845591191",
+        appId: "1:1013845591191:web:6325973ef3ea5f3dde55d2",
+        measurementId: "G-E6WHNL5TPR"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      // Poll 1 logic
+      const pollForm = document.getElementById('poll-form-firebase');
+      const pollResults = document.getElementById('poll-results-firebase');
+      pollForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const answer = document.querySelector('input[name="student"]:checked');
+        if (!answer) {
+          alert('Please select an option.');
+          return;
+        }
+        await db.collection('studentPoll').add({ answer: answer.value });
+        pollForm.reset();
+      });
+      function renderResults(counts) {
+        pollResults.innerHTML = `
+          <h4 style='font-size:1.1rem; margin-bottom:8px;'>Live Results:</h4>
+          <ul style='list-style:none; padding:0;'>
+            <li style='margin-bottom:6px;'>Yes: <strong>${counts['Yes']}</strong></li>
+            <li>No: <strong>${counts['No']}</strong></li>
+          </ul>
+        `;
+      }
+      db.collection('studentPoll').onSnapshot(function(snapshot) {
+        const counts = { 'Yes': 0, 'No': 0 };
+        snapshot.forEach(function(doc) {
+          const answer = doc.data().answer;
+          if (counts[answer] !== undefined) counts[answer]++;
+        });
+        renderResults(counts);
+      });
+
+      // Poll 2 logic
+      const howAreYouForm = document.getElementById('howareyou-form-firebase');
+      const howAreYouResults = document.getElementById('howareyou-results-firebase');
+      howAreYouForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const answer = document.querySelector('input[name="howareyou"]:checked');
+        if (!answer) {
+          alert('Please select an option.');
+          return;
+        }
+        await db.collection('howAreYouPoll').add({ answer: answer.value });
+        howAreYouForm.reset();
+      });
+      function renderHowAreYouResults(counts) {
+        howAreYouResults.innerHTML = `
+          <h4 style='font-size:1.1rem; margin-bottom:8px;'>Live Results:</h4>
+          <ul style='list-style:none; padding:0;'>
+            <li style='margin-bottom:6px;'>Good: <strong>${counts['Good']}</strong></li>
+            <li style='margin-bottom:6px;'>Okay: <strong>${counts['Okay']}</strong></li>
+            <li style='margin-bottom:6px;'>Tired: <strong>${counts['Tired']}</strong></li>
+            <li>Others: <strong>${counts['Others']}</strong></li>
+          </ul>
+        `;
+      }
+      db.collection('howAreYouPoll').onSnapshot(function(snapshot) {
+        const counts = { 'Good': 0, 'Okay': 0, 'Tired': 0, 'Others': 0 };
+        snapshot.forEach(function(doc) {
+          const answer = doc.data().answer;
+          if (counts[answer] !== undefined) counts[answer]++;
+        });
+        renderHowAreYouResults(counts);
+      });
+
+      // Poll 3 logic
+      const motivationForm = document.getElementById('motivation-form-firebase');
+      const motivationResults = document.getElementById('motivation-results-firebase');
+      motivationForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const motivation = document.querySelector('input[name="motivation"]:checked');
+        if (!motivation) {
+          alert('Please select an option.');
+          return;
+        }
+        await db.collection('motivationPoll').add({ answer: motivation.value });
+        motivationForm.reset();
+      });
+      function renderMotivationResults(counts) {
+        motivationResults.innerHTML = `
+          <h4 style='font-size:1.1rem; margin-bottom:8px;'>Live Results:</h4>
+          <ul style='list-style:none; padding:0;'>
+            <li style='margin-bottom:6px;'>Personal Passion: <strong>${counts['Personal Passion']}</strong></li>
+            <li style='margin-bottom:6px;'>Financial Reward: <strong>${counts['Financial Reward']}</strong></li>
+            <li style='margin-bottom:6px;'>Public Recognition: <strong>${counts['Public Recognition']}</strong></li>
+            <li style='margin-bottom:6px;'>Collaboration with Others: <strong>${counts['Collaboration with Others']}</strong></li>
+          </ul>
+        `;
+      }
+      db.collection('motivationPoll').onSnapshot(function(snapshot) {
+        const counts = { 'Personal Passion': 0, 'Financial Reward': 0, 'Public Recognition': 0, 'Collaboration with Others': 0 };
+        snapshot.forEach(function(doc) {
+          const answer = doc.data().answer;
+          if (counts[answer] !== undefined) counts[answer]++;
+        });
+        renderMotivationResults(counts);
+      });
+
+      // Poll 4 logic
+      const datatrustForm = document.getElementById('datatrust-form-firebase');
+      const datatrustResults = document.getElementById('datatrust-results-firebase');
+      datatrustForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const datatrust = document.querySelector('input[name="datatrust"]:checked');
+        if (!datatrust) {
+          alert('Please select an option.');
+          return;
+        }
+        await db.collection('dataTrustPoll').add({ answer: datatrust.value });
+        datatrustForm.reset();
+      });
+      function renderDatatrustResults(counts) {
+        datatrustResults.innerHTML = `
+          <h4 style='font-size:1.1rem; margin-bottom:8px;'>Live Results:</h4>
+          <ul style='list-style:none; padding:0;'>
+            <li style='margin-bottom:6px;'>Surveys: <strong>${counts['Surveys']}</strong></li>
+            <li style='margin-bottom:6px;'>Interviews: <strong>${counts['Interviews']}</strong></li>
+            <li style='margin-bottom:6px;'>Observations: <strong>${counts['Observations']}</strong></li>
+            <li style='margin-bottom:6px;'>Sensor/IoT Data: <strong>${counts['Sensor/IoT Data']}</strong></li>
+            <li style='margin-bottom:6px;'>Web & App Analytics: <strong>${counts['Web & App Analytics']}</strong></li>
+          </ul>
+        `;
+      }
+      db.collection('dataTrustPoll').onSnapshot(function(snapshot) {
+        const counts = { 'Surveys': 0, 'Interviews': 0, 'Observations': 0, 'Sensor/IoT Data': 0, 'Web & App Analytics': 0 };
+        snapshot.forEach(function(doc) {
+          const answer = doc.data().answer;
+          if (counts[answer] !== undefined) counts[answer]++;
+        });
+        renderDatatrustResults(counts);
+      });
+    </script>
+  </div>
+
 </body>
 </html> 
