@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Exploring Mapping</title>
   <link rel="stylesheet" href="style.css">
+  <script src='https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js'></script>
+  <link href='https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css' rel='stylesheet' />
+  <style>
+    #map {
+      width: 100%;
+      height: 800px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
   <!-- Header -->
@@ -25,11 +35,153 @@
   
   <!-- Main content -->
   <main>
-    <h2>Exploring Mapping: Spatial Analysis</h2>
-    <ul>
-      <li><a href="#">Explore Mapping</a></li>
-    </ul>
-    <p>Content for spatial analysis and mapping exploration.</p>
+    <h2>Mapping Hype: Toy Stores Around the World</h2>
+    
+    <div id="map"></div>
+    
+    <div class="project-overview">
+      <h1><strong>Project Overview</strong></h1>
+      <p>"Mapping Hype" is an interactive data visualization project that explores the global spread of hype culture through designer toy stores across four major cities: New York City, Los Angeles, Tokyo, and Shanghai. The project uses a custom-designed toy as a visual metaphor to map cultural hotspots and consumer behavior patterns.</p>
+      
+      <h3>How to Interact with the Map:</h3>
+      <ul>
+        <li>Click on city buttons (NYC, Tokyo, Shanghai, Los Angeles) to jump to that region.</li>
+        <li>Each toy figure on the map represents a designer toy store in that city.</li>
+        <li>Hover or click a toy to reveal store details, including name and address.</li>
+        <li>Colors and characters indicate the cultural identity or theme of that region's toy scene.</li>
+        <li>The map acts as a visual metaphor for trend clustering and hype culture diffusion.</li>
+        <li>Designed to explore consumer behavior patterns and global intersections of street culture.</li>
+      </ul>
+      
+      <h3>Technical Implementation</h3>
+      <p>The project was built using Python for data processing and analysis, with HTML, CSS, and JavaScript for the interactive web visualization. The custom toy design was created using computational design tools, incorporating elements that represent different aspects of hype culture and consumer behavior.</p>
+      
+      <p>The interactive map allows users to explore different cities and view detailed information about designer toy stores, including their locations, product offerings, and cultural significance. The custom toy design serves as both a visual element and a data visualization tool, with different parts of the toy representing different aspects of the cultural analysis.</p>
+      
+      <h3>Key Findings</h3>
+      <p>The project revealed distinct patterns in how hype culture manifests across different cities. Tokyo showed the highest concentration of designer toy stores, with a strong emphasis on collectible culture. New York City demonstrated a mix of high-end boutiques and street culture influences. Los Angeles revealed connections between entertainment industry and designer toy culture. Shanghai showed emerging trends in luxury designer toy markets.</p>
+      
+      <h3>Design Process</h3>
+      <p>The custom toy design was developed through iterative prototyping, incorporating feedback from cultural experts and designer toy enthusiasts. The final design serves as both a visual metaphor and an interactive element in the web visualization, allowing users to explore different aspects of the cultural analysis through different parts of the toy.</p>
+      
+      <h3>Impact & Future Work</h3>
+      <p>This project provides a unique lens through which to understand global cultural trends and consumer behavior. Future iterations could expand to include more cities, real-time data updates, and deeper analysis of social media influence on hype culture.</p>
+    </div>
   </main>
+
+  <script>
+    // Using your original MapLibre style
+    const map = new maplibregl.Map({
+      container: 'map',
+      style: 'https://api.maptiler.com/maps/01984d3e-b180-7b5c-95d8-d3358c517535/style.json?key=m0E6vRrf1tfFuz2sFKuW',
+      center: [-73.97, 40.77],
+      zoom: 2
+    });
+
+    map.on('load', () => {
+      Promise.all([
+        loadIcon('icon2.png'),  // NYC
+        loadIcon('icon1.png'),  // Tokyo
+        loadIcon('icon3.png'),  // Shanghai
+        loadIcon('icon4.png'),  // LA
+        loadIcon('icon.png')    // Hover icon
+      ]).then(([nycIcon, tokyoIcon, shanghaiIcon, laIcon, hoverIcon]) => {
+        map.addImage('nyc-icon', nycIcon);
+        map.addImage('tokyo-icon', tokyoIcon);
+        map.addImage('shanghai-icon', shanghaiIcon);
+        map.addImage('la-icon', laIcon);
+        map.addImage('hover-icon', hoverIcon);
+
+        // Add all cities
+        addLayerWithPopup('nyc', 'manhattan_toy_stores.geojson', 'nyc-icon', 'nyc-layer');
+        addLayerWithPopup('tokyo', 'tokyo_toy_stores.geojson', 'tokyo-icon', 'tokyo-layer');
+        addLayerWithPopup('shanghai', 'shanghai_toy_stores.geojson', 'shanghai-icon', 'shanghai-layer');
+        addLayerWithPopup('la', 'losangeles_toy_stores.geojson', 'la-icon', 'la-layer');
+
+        // Region navigation buttons
+        addRegionButtons();
+      });
+    });
+
+    function loadIcon(path) {
+      return new Promise((resolve, reject) => {
+        map.loadImage(path, (err, image) => {
+          if (err) reject(err);
+          else resolve(image);
+        });
+      });
+    }
+
+    function addLayerWithPopup(sourceId, geojsonFile, defaultIcon, layerId) {
+      map.addSource(sourceId, {
+        type: 'geojson',
+        data: geojsonFile
+      });
+
+      map.addLayer({
+        id: layerId,
+        type: 'symbol',
+        source: sourceId,
+        layout: {
+          'icon-image': defaultIcon,
+          'icon-size': 0.15,
+          'icon-allow-overlap': true
+        }
+      });
+
+      // Hover effect
+      map.on('mouseenter', layerId, () => {
+        map.setLayoutProperty(layerId, 'icon-image', 'hover-icon');
+      });
+      map.on('mouseleave', layerId, () => {
+        map.setLayoutProperty(layerId, 'icon-image', defaultIcon);
+      });
+
+      map.on('click', layerId, (e) => {
+        const props = e.features[0].properties;
+        new maplibregl.Popup()
+          .setLngLat(e.lngLat)
+          .setHTML(`<strong>${props.Name}</strong><br>${props.Address}`)
+          .addTo(map);
+      });
+    }
+
+    function addRegionButtons() {
+      const regions = [
+        { name: 'NYC', center: [-73.97, 40.77] },
+        { name: 'Tokyo', center: [139.7, 35.67] },
+        { name: 'Shanghai', center: [121.47, 31.23] },
+        { name: 'Los Angeles', center: [-118.24, 34.05] }
+      ];
+
+      const nav = document.createElement('div');
+      nav.style.position = 'absolute';
+      nav.style.top = '10px';
+      nav.style.left = '10px';
+      nav.style.background = 'white';
+      nav.style.padding = '10px';
+      nav.style.borderRadius = '8px';
+      nav.style.zIndex = 1;
+      nav.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+
+      regions.forEach(region => {
+        const btn = document.createElement('button');
+        btn.innerText = region.name;
+        btn.style.margin = '5px';
+        btn.style.padding = '8px 12px';
+        btn.style.border = '1px solid #ccc';
+        btn.style.borderRadius = '4px';
+        btn.style.background = '#f8f9fa';
+        btn.style.cursor = 'pointer';
+        btn.onclick = () => {
+          map.flyTo({ center: region.center, zoom: 13 });
+        };
+        nav.appendChild(btn);
+      });
+
+      // Add the navigation to the map container instead of body
+      document.getElementById('map').appendChild(nav);
+    }
+  </script>
 </body>
 </html> 
