@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapping Invisible</title>
+  <link rel="stylesheet" href="style.css">
+  <script src='https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js'></script>
+  <link href='https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css' rel='stylesheet' />
+  <style>
+    .comic-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .slide {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    
+    .slide.active {
+      display: block;
+    }
+    
+    .comic-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      margin: 20px 0;
+    }
+    
+    .navigation {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .nav-btn {
+      padding: 12px 24px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .nav-btn:hover {
+      background: #0056b3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    .nav-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <span class="header-left">Ji-in Kang</span>
+    <span class="header-right">Columbia University CDP 2025</span>
+  </header>
+  
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="colloquium1.html">Colloquium 1</a></li>
+      <li><a href="modelling.html">Computational Modelling</a></li>
+      <li><a href="workflows.html">Computational Design Workflows</a></li>
+      <li><a href="mapping.html">Mapping Systems</a></li>
+      <li><a href="final-project.html">Final Project</a></li>
+    </ul>
+  </nav>
+  
+  <!-- Main content -->
+  <main>
+    <div class="comic-container">
+      <h1 style="text-align: center; color: #333; margin-bottom: 30px;">Mapping Invisible</h1>
+      
+      <!-- Slide 1 -->
+      <div class="slide active" id="slide-1">
+        <img src="comics/final_comics-01.png" alt="Comic Page 1" class="comic-image">
+      </div>
+      
+      <!-- Slide 2 -->
+      <div class="slide" id="slide-2">
+        <img src="comics/final_comics-02.png" alt="Comic Page 2" class="comic-image">
+      </div>
+      
+      <!-- Slide 3 -->
+      <div class="slide" id="slide-3">
+        <img src="comics/final_comics-03.png" alt="Comic Page 3" class="comic-image">
+      </div>
+      
+      <!-- Slide 4 -->
+      <div class="slide" id="slide-4">
+        <img src="comics/final_comics-04.png" alt="Comic Page 4" class="comic-image">
+      </div>
+      
+      <!-- Slide 5 -->
+      <div class="slide" id="slide-5">
+        <img src="comics/final_comics-05.png" alt="Comic Page 5" class="comic-image">
+      </div>
+      
+      <!-- Slide 6 -->
+      <div class="slide" id="slide-6">
+        <img src="comics/final_comics-06.png" alt="Comic Page 6" class="comic-image">
+      </div>
+      
+      <!-- Navigation -->
+      <div style="text-align: center; margin-top: 30px;">
+        <button class="nav-btn" id="prev-btn" onclick="previousSlide()" style="background: #333; color: white; border: none; padding: 10px 20px; margin: 0 10px; border-radius: 5px; cursor: pointer; font-size: 14px;">← Previous</button>
+        <span id="slide-indicator" style="margin: 0 20px; color: #666; font-weight: bold;">1 / 6</span>
+        <button class="nav-btn" id="next-btn" onclick="nextSlide()" style="background: #333; color: white; border: none; padding: 10px 20px; margin: 0 10px; border-radius: 5px; cursor: pointer; font-size: 14px;">Next →</button>
+      </div>
+    </div>
+    
+    <!-- Interactive Map Section -->
+    <div class="interactive-map-section" style="margin: 60px 0; padding: 40px 20px; background: #f8f9fa; border-radius: 15px; border: 1px solid #e9ecef;">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <h2 style="text-align: center; margin-bottom: 30px; font-size: 2.5em; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); color: #333;">
+          Interactive Toy Store Map
+        </h2>
+        <p style="text-align: center; margin-bottom: 40px; font-size: 1.2em; opacity: 0.8; color: #666;">
+         
+        </p>
+        <div id="map" style="width: 100%; height: 600px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);"></div>
+      </div>
+    </div>
+    
+    <!-- Network Analysis Section -->
+    <div class="network-analysis-section" style="margin: 60px 0; padding: 40px 20px; background: #ffffff; border-radius: 15px; border: 1px solid #e9ecef; color: #333;">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <h2 style="text-align: center; margin-bottom: 30px; font-size: 2.5em; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); color: #333;">
+          Network Analysis of Material Chain
+        </h2>
+        <p style="text-align: center; margin-bottom: 40px; font-size: 1.2em; opacity: 0.8; color: #666;">
+          Complex relationships and invisible factors in the supply chain that influence hype culture
+        </p>
+        <div style="text-align: center;">
+          <img src="network_analysis_1.png" alt="Network Analysis of Material Chain" 
+               style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); border: none; background: transparent;">
+        </div>
+      </div>
+    </div>
+    
+    <!-- Comic Section -->
+    <div class="comic-section" style="margin: 60px 0; padding: 40px 20px; background: #f8f9fa; border-radius: 15px; border: 1px solid #e9ecef;">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        
+        <div class="comic-container" style="position: relative;">
+          <!-- Comic Slide 1 -->
+          <div class="comic-slide active" id="comic-slide-1" style="display: block; text-align: center;">
+            <img src="comics/final_comics-07.png" alt="Comic Page 1" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+          </div>
+          
+          <!-- Comic Slide 2 -->
+          <div class="comic-slide" id="comic-slide-2" style="display: none; text-align: center;">
+            <img src="comics/final_comics-08.png" alt="Comic Page 2" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+          </div>
+          
+          <!-- Comic Slide 3 -->
+          <div class="comic-slide" id="comic-slide-3" style="display: none; text-align: center;">
+            <img src="comics/final_comics-09.png" alt="Comic Page 3" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+          </div>
+          
+          <!-- Comic Slide 4 -->
+          <div class="comic-slide" id="comic-slide-4" style="display: none; text-align: center;">
+            <img src="comics/final_comics.png" alt="Comic Page 4" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+          </div>
+          
+          <!-- Comic Slide 5 -->
+          <div class="comic-slide" id="comic-slide-5" style="display: none; text-align: center;">
+            <img src="comics/final_comics-05.png" alt="Comic Page 5" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+          </div>
+          
+          <!-- Comic Navigation -->
+          <div style="text-align: center; margin-top: 30px;">
+            <button class="comic-nav-btn" id="comic-prev-btn" onclick="previousComicSlide()" style="background: #333; color: white; border: none; padding: 10px 20px; margin: 0 10px; border-radius: 5px; cursor: pointer; font-size: 14px;">← Previous</button>
+            <span id="comic-slide-indicator" style="margin: 0 20px; color: #666; font-weight: bold;">1 / 5</span>
+            <button class="comic-nav-btn" id="comic-next-btn" onclick="nextComicSlide()" style="background: #333; color: white; border: none; padding: 10px 20px; margin: 0 10px; border-radius: 5px; cursor: pointer; font-size: 14px;">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Material Chain Map Section -->
+    <div class="material-chain-map-section" style="margin: 60px 0; padding: 40px 20px; background: #f8f9fa; border-radius: 15px; border: 1px solid #e9ecef;">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <h2 style="text-align: center; margin-bottom: 30px; font-size: 2.5em; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); color: #333;">
+          Material Supply Chain Map
+        </h2>
+        <p style="text-align: center; margin-bottom: 40px; font-size: 1.2em; opacity: 0.8; color: #666;">
+          Explore the complex material chain from oil extraction to toy manufacturing
+        </p>
+        <div id="material-chain-map" style="width: 100%; height: 600px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);"></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 6;
+    
+    function showSlide(slideNumber) {
+      // Hide all slides
+      for (let i = 1; i <= totalSlides; i++) {
+        document.getElementById(`slide-${i}`).classList.remove('active');
+      }
+      
+      // Show current slide
+      document.getElementById(`slide-${slideNumber}`).classList.add('active');
+      
+      // Update indicator
+      document.getElementById('slide-indicator').textContent = `${slideNumber} / ${totalSlides}`;
+      
+      // Update button states
+      document.getElementById('prev-btn').disabled = slideNumber === 1;
+      document.getElementById('next-btn').disabled = slideNumber === totalSlides;
+    }
+    
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        currentSlide++;
+        showSlide(currentSlide);
+      }
+    }
+    
+    function previousSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        showSlide(currentSlide);
+      }
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'ArrowRight' || event.key === ' ') {
+        nextSlide();
+      } else if (event.key === 'ArrowLeft') {
+        previousSlide();
+      }
+    });
+    
+    // Initialize
+    showSlide(1);
+    
+    // Initialize map immediately
+    let mapInitialized = false;
+    
+    // Initialize map when page loads
+    initializeMap();
+    
+    // Comic navigation variables
+    let currentComicSlide = 1;
+    const totalComicSlides = 5;
+    
+    function showComicSlide(slideNumber) {
+      // Hide all comic slides
+      for (let i = 1; i <= totalComicSlides; i++) {
+        document.getElementById(`comic-slide-${i}`).style.display = 'none';
+      }
+      
+      // Show current comic slide
+      document.getElementById(`comic-slide-${slideNumber}`).style.display = 'block';
+      
+      // Update indicator
+      document.getElementById('comic-slide-indicator').textContent = `${slideNumber} / ${totalComicSlides}`;
+      
+      // Update button states
+      document.getElementById('comic-prev-btn').disabled = slideNumber === 1;
+      document.getElementById('comic-next-btn').disabled = slideNumber === totalComicSlides;
+    }
+    
+    function nextComicSlide() {
+      if (currentComicSlide < totalComicSlides) {
+        currentComicSlide++;
+        showComicSlide(currentComicSlide);
+      }
+    }
+    
+    function previousComicSlide() {
+      if (currentComicSlide > 1) {
+        currentComicSlide--;
+        showComicSlide(currentComicSlide);
+      }
+    }
+    
+    // Initialize comic slides
+    showComicSlide(1);
+    
+    // Initialize material chain map
+    initializeMaterialChainMap();
+    
+    function initializeMap() {
+      if (mapInitialized) return;
+      
+      const map = new maplibregl.Map({
+        container: 'map',
+        style: 'https://api.maptiler.com/maps/01984d3e-b180-7b5c-95d8-d3358c517535/style.json?key=m0E6vRrf1tfFuz2sFKuW',
+        center: [-73.97, 40.77],
+        zoom: 2
+      });
+
+      map.on('load', () => {
+        Promise.all([
+          loadIcon('icon2.png'),  // NYC
+          loadIcon('icon1.png'),  // Tokyo
+          loadIcon('icon3.png'),  // Shanghai
+          loadIcon('icon4.png'),  // LA
+          loadIcon('icon.png')    // Hover icon
+        ]).then(([nycIcon, tokyoIcon, shanghaiIcon, laIcon, hoverIcon]) => {
+          map.addImage('nyc-icon', nycIcon);
+          map.addImage('tokyo-icon', tokyoIcon);
+          map.addImage('shanghai-icon', shanghaiIcon);
+          map.addImage('la-icon', laIcon);
+          map.addImage('hover-icon', hoverIcon);
+
+          // Add all cities
+          addLayerWithPopup('nyc', 'manhattan_toy_stores.geojson', 'nyc-icon', 'nyc-layer');
+          addLayerWithPopup('tokyo', 'tokyo_toy_stores.geojson', 'tokyo-icon', 'tokyo-layer');
+          addLayerWithPopup('shanghai', 'shanghai_toy_stores.geojson', 'shanghai-icon', 'shanghai-layer');
+          addLayerWithPopup('la', 'losangeles_toy_stores.geojson', 'la-icon', 'la-layer');
+
+          // Region navigation buttons
+          addRegionButtons();
+        });
+      });
+
+      function loadIcon(path) {
+        return new Promise((resolve, reject) => {
+          map.loadImage(path, (err, image) => {
+            if (err) reject(err);
+            else resolve(image);
+          });
+        });
+      }
+
+      function addLayerWithPopup(sourceId, geojsonFile, defaultIcon, layerId) {
+        map.addSource(sourceId, {
+          type: 'geojson',
+          data: geojsonFile
+        });
+
+        map.addLayer({
+          id: layerId,
+          type: 'symbol',
+          source: sourceId,
+          layout: {
+            'icon-image': defaultIcon,
+            'icon-size': 0.15,
+            'icon-allow-overlap': true
+          }
+        });
+
+        // Hover effect
+        map.on('mouseenter', layerId, () => {
+          map.setLayoutProperty(layerId, 'icon-image', 'hover-icon');
+        });
+        map.on('mouseleave', layerId, () => {
+          map.setLayoutProperty(layerId, 'icon-image', defaultIcon);
+        });
+
+        map.on('click', layerId, (e) => {
+          const props = e.features[0].properties;
+          new maplibregl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(`<strong>${props.Name}</strong><br>${props.Address}`)
+            .addTo(map);
+        });
+      }
+
+      function addRegionButtons() {
+        const regions = [
+          { name: 'NYC', center: [-73.97, 40.77] },
+          { name: 'Tokyo', center: [139.7, 35.67] },
+          { name: 'Shanghai', center: [121.47, 31.23] },
+          { name: 'Los Angeles', center: [-118.24, 34.05] }
+        ];
+
+        const nav = document.createElement('div');
+        nav.style.position = 'absolute';
+        nav.style.top = '10px';
+        nav.style.left = '10px';
+        nav.style.background = 'white';
+        nav.style.padding = '10px';
+        nav.style.borderRadius = '8px';
+        nav.style.zIndex = 1;
+        nav.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+
+        regions.forEach(region => {
+          const btn = document.createElement('button');
+          btn.innerText = region.name;
+          btn.style.margin = '5px';
+          btn.style.padding = '8px 12px';
+          btn.style.border = '1px solid #ccc';
+          btn.style.borderRadius = '4px';
+          btn.style.background = '#f8f9fa';
+          btn.style.cursor = 'pointer';
+          btn.onclick = () => {
+            map.flyTo({ center: region.center, zoom: 13 });
+          };
+          nav.appendChild(btn);
+        });
+
+        document.getElementById('map').appendChild(nav);
+      }
+      
+      mapInitialized = true;
+    }
+    
+    // Initialize map when slide 7 is shown
+    const originalShowSlide = showSlide;
+    showSlide = function(slideNumber) {
+      originalShowSlide(slideNumber);
+      if (slideNumber === 7) {
+        setTimeout(initializeMap, 100);
+      }
+    };
+    
+    // Material Chain Map Functions
+    function initializeMaterialChainMap() {
+      const materialChainMap = new maplibregl.Map({
+        container: 'material-chain-map',
+        style: 'https://api.maptiler.com/maps/01984d3e-b180-7b5c-95d8-d3358c517535/style.json?key=m0E6vRrf1tfFuz2sFKuW',
+        center: [-73.97, 40.77],
+        zoom: 2
+      });
+
+      // Material chain data
+      const materialChainData = {
+        "type": "FeatureCollection",
+        "features": [
+          // 1. Oil Extraction
+          {
+            "type": "Feature",
+            "properties": {
+              "name": "Oil Production - Saudi Arabia",
+              "stage": "oil_extraction",
+              "country": "Saudi Arabia",
+              "description": "World's largest oil exporter",
+              "invisible_factors": "Oil prices: $85/barrel, Geopolitical tensions, Environmental impact, OPEC policies"
+            },
+            "geometry": {"type": "Point", "coordinates": [45.0792, 24.7136]}
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "name": "Oil Production - Russia",
+              "stage": "oil_extraction",
+              "country": "Russia",
+              "description": "Major supplier to China",
+              "invisible_factors": "Sanctions impact, Pipeline politics, Currency fluctuations"
+            },
+            "geometry": {"type": "Point", "coordinates": [37.6173, 55.7558]}
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "name": "Oil Production - USA",
+              "stage": "oil_extraction",
+              "country": "United States",
+              "description": "Texas, North Dakota shale",
+              "invisible_factors": "Fracking regulations, Domestic energy policy, Export restrictions"
+            },
+            "geometry": {"type": "Point", "coordinates": [-98.5795, 39.8283]}
+          },
+          // 2. Ethylene Production
+          {
+            "type": "Feature",
+            "properties": {
+              "name": "Ethylene Plant - China",
+              "stage": "ethylene_production",
+              "country": "China",
+              "description": "Guangdong, Maoming, Daqing",
+              "invisible_factors": "Massive ethylene plants, Government subsidies, Environmental regulations"
+            },
+            "geometry": {"type": "Point", "coordinates": [113.2806, 23.1291]}
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "name": "Ethylene Plant - Singapore",
+              "stage": "ethylene_production",
+              "country": "Singapore",
+              "description": "Jurong Island - Sinopec, ExxonMobil",
+              "invisible_factors": "Shipping hub, Trade policies, Currency exchange rates"
+            },
+            "geometry": {"type": "Point", "coordinates": [103.8198, 1.3521]}
+          },
+          // 3. Chlorine Production
+          {
+            "type": "Feature",
+            "properties": {
+              "name": "Chlorine Production - China",
+              "stage": "chlorine_production",
+              "country": "China",
+              "description": "World leader in chlorine production",
+              "invisible_factors": "Environmental impact, Labor costs, Government oversight"
+            },
+            "geometry": {"type": "Point", "coordinates": [116.4074, 39.9042]}
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "name": "Chlorine Production - USA",
+              "stage": "chlorine_production",
+              "country": "United States",
+              "description": "Olin Corp, Westlake Chemical",
+              "invisible_factors": "Safety regulations, EPA oversight, Labor unions"
+            },
+            "geometry": {"type": "Point", "coordinates": [-95.7129, 37.0902]}
+          },
+          // 4. PVC Production
+          {
+            "type": "Feature",
+            "properties": {
+              "name": "PVC Production - China",
+              "stage": "pvc_production",
+              "country": "China",
+              "description": "Zhejiang, Guangdong massive PVC industry",
+              "invisible_factors": "Production costs, Quality control, Export policies"
+            },
+            "geometry": {"type": "Point", "coordinates": [120.1551, 30.2741]}
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "name": "PVC Production - USA",
+              "stage": "pvc_production",
+              "country": "United States",
+              "description": "Major PVC producer",
+              "invisible_factors": "Trade tariffs, Environmental regulations, Labor costs"
+            },
+            "geometry": {"type": "Point", "coordinates": [-87.6298, 41.8781]}
+          },
+          // 5. Toy Manufacturing
+          {
+            "type": "Feature",
+            "properties": {
+              "name": "Toy Factory - Shenzhen",
+              "stage": "toy_manufacturing",
+              "country": "China",
+              "description": "Dongguan, Shenzhen, Taizhou toy capitals",
+              "invisible_factors": "Labor conditions, Production costs, Quality control, IP protection"
+            },
+            "geometry": {"type": "Point", "coordinates": [114.0579, 22.5431]}
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "name": "Toy Factory - Taiwan",
+              "stage": "toy_manufacturing",
+              "country": "Taiwan",
+              "description": "Smaller, quality-controlled toy runs",
+              "invisible_factors": "Higher quality standards, IP protection, Higher costs"
+            },
+            "geometry": {"type": "Point", "coordinates": [121.5654, 25.0330]}
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "name": "Sofubi Factory - Japan",
+              "stage": "toy_manufacturing",
+              "country": "Japan",
+              "description": "Sofubi (soft vinyl) toys, hand-poured",
+              "invisible_factors": "Artisan craftsmanship, Higher costs, Limited production"
+            },
+            "geometry": {"type": "Point", "coordinates": [139.6917, 35.6895]}
+          }
+        ]
+      };
+
+      materialChainMap.on('load', () => {
+        // Add material chain source
+        materialChainMap.addSource('material-chain', {
+          type: 'geojson',
+          data: materialChainData
+        });
+
+        // Add material chain layer with color coding
+        materialChainMap.addLayer({
+          id: 'material-chain-layer',
+          type: 'circle',
+          source: 'material-chain',
+          paint: {
+            'circle-radius': 12,
+            'circle-color': [
+              'case',
+              ['==', ['get', 'stage'], 'oil_extraction'], '#ff6b6b',
+              ['==', ['get', 'stage'], 'ethylene_production'], '#ffa726',
+              ['==', ['get', 'stage'], 'chlorine_production'], '#66bb6a',
+              ['==', ['get', 'stage'], 'pvc_production'], '#42a5f5',
+              ['==', ['get', 'stage'], 'toy_manufacturing'], '#ab47bc',
+              '#666'
+            ],
+            'circle-stroke-width': 2,
+            'circle-stroke-color': '#fff'
+          }
+        });
+
+        // Add popups for material chain points
+        materialChainMap.on('click', 'material-chain-layer', (e) => {
+          const props = e.features[0].properties;
+          new maplibregl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(`
+              <div style="padding: 10px;">
+                <h3 style="margin: 0 0 10px 0; color: #333;">${props.name}</h3>
+                <p style="margin: 0 0 8px 0; color: #666; font-style: italic;">${props.description}</p>
+                <p style="margin: 0; color: #333;"><strong>Invisible Factors:</strong></p>
+                <p style="margin: 5px 0 0 0; color: #666; font-size: 0.9em;">${props.invisible_factors}</p>
+              </div>
+            `)
+            .addTo(materialChainMap);
+        });
+
+        // Add hover effect
+        materialChainMap.on('mouseenter', 'material-chain-layer', () => {
+          materialChainMap.getCanvas().style.cursor = 'pointer';
+        });
+        materialChainMap.on('mouseleave', 'material-chain-layer', () => {
+          materialChainMap.getCanvas().style.cursor = '';
+        });
+      });
+    }
+  </script>
+</body>
+</html> 

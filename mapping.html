@@ -14,6 +14,28 @@
       margin: 20px 0;
       border-radius: 8px;
     }
+    
+    .layer-btn {
+      padding: 10px 20px;
+      margin: 0 5px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      background: #f8f9fa;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    
+    .layer-btn:hover {
+      background: #e9ecef;
+      border-color: #adb5bd;
+    }
+    
+    .layer-btn.active {
+      background: #007bff;
+      color: white;
+      border-color: #007bff;
+    }
   </style>
 </head>
 <body>
@@ -35,22 +57,36 @@
   
   <!-- Main content -->
   <main>
-    <h2>Mapping Hype: Toy Stores Around the World</h2>
+    <h2>Mapping Hype: Toy Stores & Material Chain</h2>
+    
+    <!-- Layer Controls -->
+    <div class="layer-controls" style="margin: 20px 0; text-align: center;">
+      <button id="show-toy-stores" class="layer-btn active" onclick="toggleLayer('toy-stores')">Toy Stores</button>
+      <button id="show-material-chain" class="layer-btn" onclick="toggleLayer('material-chain')">Material Chain</button>
+      <button id="show-both" class="layer-btn" onclick="toggleLayer('both')">Show Both</button>
+    </div>
     
     <div id="map"></div>
     
     <div class="project-overview">
       <h1><strong>Project Overview</strong></h1>
-      <p>"Mapping Hype" is an interactive data visualization project that explores the global spread of hype culture through designer toy stores across four major cities: New York City, Los Angeles, Tokyo, and Shanghai. The project uses a custom-designed toy as a visual metaphor to map cultural hotspots and consumer behavior patterns.</p>
+      <p>"Mapping Hype" is an interactive data visualization project that explores the global spread of hype culture through designer toy stores and their complex material supply chain. The project reveals how "invisible factors" like oil prices, labor conditions, and trade policies ultimately influence hype culture and consumer behavior patterns.</p>
+      
+      <p>The visualization shows two interconnected layers: the <strong>consumer-facing toy stores</strong> in major cities (NYC, LA, Tokyo, Shanghai) and the <strong>invisible material chain</strong> that spans from oil extraction in Saudi Arabia to toy manufacturing in China, Taiwan, and Japan.</p>
       
       <h3>How to Interact with the Map:</h3>
       <ul>
-        <li>Click on city buttons (NYC, Tokyo, Shanghai, Los Angeles) to jump to that region.</li>
-        <li>Each toy figure on the map represents a designer toy store in that city.</li>
-        <li>Hover or click a toy to reveal store details, including name and address.</li>
-        <li>Colors and characters indicate the cultural identity or theme of that region's toy scene.</li>
-        <li>The map acts as a visual metaphor for trend clustering and hype culture diffusion.</li>
-        <li>Designed to explore consumer behavior patterns and global intersections of street culture.</li>
+        <li><strong>Layer Controls:</strong> Use the buttons above the map to switch between views:
+          <ul>
+            <li><strong>Toy Stores:</strong> View designer toy stores in NYC, Tokyo, Shanghai, and LA</li>
+            <li><strong>Material Chain:</strong> View the complex supply chain from oil extraction to toy manufacturing</li>
+            <li><strong>Show Both:</strong> View both toy stores and material chain together</li>
+          </ul>
+        </li>
+        <li><strong>Toy Stores:</strong> Click on city buttons (NYC, Tokyo, Shanghai, Los Angeles) to jump to that region. Each toy figure represents a designer toy store.</li>
+        <li><strong>Material Chain:</strong> Click on colored circles to see details about each stage of production and the "invisible factors" that influence hype culture.</li>
+        <li><strong>Color Coding:</strong> Material chain stages are color-coded: Red (Oil) → Orange (Ethylene) → Green (Chlorine) → Blue (PVC) → Purple (Manufacturing)</li>
+        <li>The map reveals how invisible factors like oil prices, labor conditions, and trade policies ultimately affect toy store hype culture.</li>
       </ul>
       
       <h3>Technical Implementation</h3>
@@ -78,6 +114,150 @@
       zoom: 2
     });
 
+    // Material chain data
+    const materialChainData = {
+      "type": "FeatureCollection",
+      "features": [
+        // 1. Oil Extraction
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Oil Production - Saudi Arabia",
+            "stage": "oil_extraction",
+            "country": "Saudi Arabia",
+            "description": "World's largest oil exporter",
+            "invisible_factors": "Oil prices: $85/barrel, Geopolitical tensions, Environmental impact, OPEC policies"
+          },
+          "geometry": {"type": "Point", "coordinates": [45.0792, 24.7136]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Oil Production - Russia",
+            "stage": "oil_extraction",
+            "country": "Russia",
+            "description": "Major supplier to China",
+            "invisible_factors": "Sanctions impact, Pipeline politics, Currency fluctuations"
+          },
+          "geometry": {"type": "Point", "coordinates": [37.6173, 55.7558]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Oil Production - USA",
+            "stage": "oil_extraction",
+            "country": "United States",
+            "description": "Texas, North Dakota shale",
+            "invisible_factors": "Fracking regulations, Domestic energy policy, Export restrictions"
+          },
+          "geometry": {"type": "Point", "coordinates": [-98.5795, 39.8283]}
+        },
+        // 2. Ethylene Production
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Ethylene Plant - China",
+            "stage": "ethylene_production",
+            "country": "China",
+            "description": "Guangdong, Maoming, Daqing",
+            "invisible_factors": "Massive ethylene plants, Government subsidies, Environmental regulations"
+          },
+          "geometry": {"type": "Point", "coordinates": [113.2806, 23.1291]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Ethylene Plant - Singapore",
+            "stage": "ethylene_production",
+            "country": "Singapore",
+            "description": "Jurong Island - Sinopec, ExxonMobil",
+            "invisible_factors": "Shipping hub, Trade policies, Currency exchange rates"
+          },
+          "geometry": {"type": "Point", "coordinates": [103.8198, 1.3521]}
+        },
+        // 3. Chlorine Production
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Chlorine Production - China",
+            "stage": "chlorine_production",
+            "country": "China",
+            "description": "World leader in chlorine production",
+            "invisible_factors": "Environmental impact, Labor costs, Government oversight"
+          },
+          "geometry": {"type": "Point", "coordinates": [116.4074, 39.9042]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Chlorine Production - USA",
+            "stage": "chlorine_production",
+            "country": "United States",
+            "description": "Olin Corp, Westlake Chemical",
+            "invisible_factors": "Safety regulations, EPA oversight, Labor unions"
+          },
+          "geometry": {"type": "Point", "coordinates": [-95.7129, 37.0902]}
+        },
+        // 4. PVC Production
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "PVC Production - China",
+            "stage": "pvc_production",
+            "country": "China",
+            "description": "Zhejiang, Guangdong massive PVC industry",
+            "invisible_factors": "Production costs, Quality control, Export policies"
+          },
+          "geometry": {"type": "Point", "coordinates": [120.1551, 30.2741]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "PVC Production - USA",
+            "stage": "pvc_production",
+            "country": "United States",
+            "description": "Major PVC producer",
+            "invisible_factors": "Trade tariffs, Environmental regulations, Labor costs"
+          },
+          "geometry": {"type": "Point", "coordinates": [-87.6298, 41.8781]}
+        },
+        // 5. Toy Manufacturing
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Toy Factory - Shenzhen",
+            "stage": "toy_manufacturing",
+            "country": "China",
+            "description": "Dongguan, Shenzhen, Taizhou toy capitals",
+            "invisible_factors": "Labor conditions, Production costs, Quality control, IP protection"
+          },
+          "geometry": {"type": "Point", "coordinates": [114.0579, 22.5431]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Toy Factory - Taiwan",
+            "stage": "toy_manufacturing",
+            "country": "Taiwan",
+            "description": "Smaller, quality-controlled toy runs",
+            "invisible_factors": "Higher quality standards, IP protection, Higher costs"
+          },
+          "geometry": {"type": "Point", "coordinates": [121.5654, 25.0330]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Sofubi Factory - Japan",
+            "stage": "toy_manufacturing",
+            "country": "Japan",
+            "description": "Sofubi (soft vinyl) toys, hand-poured",
+            "invisible_factors": "Artisan craftsmanship, Higher costs, Limited production"
+          },
+          "geometry": {"type": "Point", "coordinates": [139.6917, 35.6895]}
+        }
+      ]
+    };
+
     map.on('load', () => {
       Promise.all([
         loadIcon('icon2.png'),  // NYC
@@ -92,14 +272,20 @@
         map.addImage('la-icon', laIcon);
         map.addImage('hover-icon', hoverIcon);
 
-        // Add all cities
+        // Add toy store layers
         addLayerWithPopup('nyc', 'manhattan_toy_stores.geojson', 'nyc-icon', 'nyc-layer');
         addLayerWithPopup('tokyo', 'tokyo_toy_stores.geojson', 'tokyo-icon', 'tokyo-layer');
         addLayerWithPopup('shanghai', 'shanghai_toy_stores.geojson', 'shanghai-icon', 'shanghai-layer');
         addLayerWithPopup('la', 'losangeles_toy_stores.geojson', 'la-icon', 'la-layer');
 
-        // Region navigation buttons
-        addRegionButtons();
+              // Add material chain layer
+      addMaterialChainLayer();
+
+      // Add connection lines
+      addConnectionLines();
+
+      // Region navigation buttons
+      addRegionButtons();
       });
     });
 
@@ -181,6 +367,391 @@
 
       // Add the navigation to the map container instead of body
       document.getElementById('map').appendChild(nav);
+    }
+
+    function addMaterialChainLayer() {
+      // Add material chain source
+      map.addSource('material-chain', {
+        type: 'geojson',
+        data: materialChainData
+      });
+
+      // Add material chain layer with different colors for each stage
+      map.addLayer({
+        id: 'material-chain-layer',
+        type: 'circle',
+        source: 'material-chain',
+        paint: {
+          'circle-radius': 8,
+          'circle-color': [
+            'match',
+            ['get', 'stage'],
+            'oil_extraction', '#d32f2f',      // Red for oil
+            'ethylene_production', '#ff9800',  // Orange for ethylene
+            'chlorine_production', '#4caf50',  // Green for chlorine
+            'pvc_production', '#2196f3',      // Blue for PVC
+            'toy_manufacturing', '#9c27b0',   // Purple for manufacturing
+            '#666666'  // Default gray
+          ],
+          'circle-stroke-width': 2,
+          'circle-stroke-color': '#ffffff'
+        }
+      });
+
+      // Add hover effect for material chain
+      map.on('mouseenter', 'material-chain-layer', () => {
+        map.getCanvas().style.cursor = 'pointer';
+      });
+      map.on('mouseleave', 'material-chain-layer', () => {
+        map.getCanvas().style.cursor = '';
+      });
+
+      // Add click popup for material chain
+      map.on('click', 'material-chain-layer', (e) => {
+        const props = e.features[0].properties;
+        new maplibregl.Popup()
+          .setLngLat(e.lngLat)
+          .setHTML(`
+            <strong>${props.name}</strong><br>
+            <em>${props.description}</em><br><br>
+            <strong>Invisible Factors:</strong><br>
+            ${props.invisible_factors}
+          `)
+          .addTo(map);
+      });
+
+      // Initially hide material chain layer
+      map.setLayoutProperty('material-chain-layer', 'visibility', 'none');
+    }
+
+    function toggleLayer(layerType) {
+      // Update button states
+      document.querySelectorAll('.layer-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Toggle layers based on selection
+      if (layerType === 'toy-stores') {
+        // Show toy stores, hide material chain
+        map.setLayoutProperty('nyc-layer', 'visibility', 'visible');
+        map.setLayoutProperty('tokyo-layer', 'visibility', 'visible');
+        map.setLayoutProperty('shanghai-layer', 'visibility', 'visible');
+        map.setLayoutProperty('la-layer', 'visibility', 'visible');
+        map.setLayoutProperty('material-chain-layer', 'visibility', 'none');
+        
+        // Hide connection lines when only toy stores are visible
+        map.setLayoutProperty('supply-lines', 'visibility', 'none');
+        map.setLayoutProperty('influence-lines', 'visibility', 'none');
+        map.setLayoutProperty('line-labels', 'visibility', 'none');
+      } else if (layerType === 'material-chain') {
+        // Show material chain, hide toy stores
+        map.setLayoutProperty('nyc-layer', 'visibility', 'none');
+        map.setLayoutProperty('tokyo-layer', 'visibility', 'none');
+        map.setLayoutProperty('shanghai-layer', 'visibility', 'none');
+        map.setLayoutProperty('la-layer', 'visibility', 'none');
+        map.setLayoutProperty('material-chain-layer', 'visibility', 'visible');
+        
+        // Hide connection lines when only material chain is visible
+        map.setLayoutProperty('supply-lines', 'visibility', 'none');
+        map.setLayoutProperty('influence-lines', 'visibility', 'none');
+        map.setLayoutProperty('line-labels', 'visibility', 'none');
+      } else if (layerType === 'both') {
+        // Show both layers
+        map.setLayoutProperty('nyc-layer', 'visibility', 'visible');
+        map.setLayoutProperty('tokyo-layer', 'visibility', 'visible');
+        map.setLayoutProperty('shanghai-layer', 'visibility', 'visible');
+        map.setLayoutProperty('la-layer', 'visibility', 'visible');
+        map.setLayoutProperty('material-chain-layer', 'visibility', 'visible');
+        
+        // Show connection lines when both layers are visible
+        map.setLayoutProperty('supply-lines', 'visibility', 'visible');
+        map.setLayoutProperty('influence-lines', 'visibility', 'visible');
+        map.setLayoutProperty('line-labels', 'visibility', 'visible');
+      }
+    }
+
+    function addConnectionLines() {
+      // Define connection lines between material chain stages and toy stores
+      const connections = [
+        // Supply chain flow (thick lines) - ALL NODES CONNECTED
+        {
+          from: [45.0792, 24.7136], // Saudi Arabia oil
+          to: [103.8198, 1.3521],   // Singapore ethylene
+          type: 'supply',
+          label: 'Oil → Ethylene'
+        },
+        {
+          from: [37.6173, 55.7558], // Russia oil
+          to: [103.8198, 1.3521],   // Singapore ethylene
+          type: 'supply',
+          label: 'Oil → Ethylene'
+        },
+        {
+          from: [-98.5795, 39.8283], // USA oil
+          to: [103.8198, 1.3521],   // Singapore ethylene
+          type: 'supply',
+          label: 'Oil → Ethylene'
+        },
+        {
+          from: [103.8198, 1.3521], // Singapore ethylene
+          to: [120.1551, 30.2741],  // China PVC
+          type: 'supply',
+          label: 'Ethylene → PVC'
+        },
+        {
+          from: [103.8198, 1.3521], // Singapore ethylene
+          to: [-87.6298, 41.8781],  // USA PVC
+          type: 'supply',
+          label: 'Ethylene → PVC'
+        },
+        {
+          from: [113.2806, 23.1291], // China ethylene
+          to: [120.1551, 30.2741],   // China PVC
+          type: 'supply',
+          label: 'Ethylene → PVC'
+        },
+        {
+          from: [113.2806, 23.1291], // China ethylene
+          to: [116.4074, 39.9042],   // China chlorine
+          type: 'supply',
+          label: 'Ethylene → Chlorine'
+        },
+        {
+          from: [116.4074, 39.9042], // China chlorine
+          to: [120.1551, 30.2741],   // China PVC
+          type: 'supply',
+          label: 'Chlorine → PVC'
+        },
+        {
+          from: [-95.7129, 37.0902], // USA chlorine
+          to: [-87.6298, 41.8781],   // USA PVC
+          type: 'supply',
+          label: 'Chlorine → PVC'
+        },
+        {
+          from: [120.1551, 30.2741], // China PVC
+          to: [114.0579, 22.5431],   // Shenzhen manufacturing
+          type: 'supply',
+          label: 'PVC → Manufacturing'
+        },
+        {
+          from: [-87.6298, 41.8781], // USA PVC
+          to: [114.0579, 22.5431],   // Shenzhen manufacturing
+          type: 'supply',
+          label: 'PVC → Manufacturing'
+        },
+        {
+          from: [120.1551, 30.2741], // China PVC
+          to: [121.5654, 25.0330],   // Taiwan manufacturing
+          type: 'supply',
+          label: 'PVC → Manufacturing'
+        },
+        {
+          from: [-87.6298, 41.8781], // USA PVC
+          to: [121.5654, 25.0330],   // Taiwan manufacturing
+          type: 'supply',
+          label: 'PVC → Manufacturing'
+        },
+        {
+          from: [114.0579, 22.5431], // Shenzhen manufacturing
+          to: [-73.97, 40.77],       // NYC stores
+          type: 'supply',
+          label: 'Manufacturing → NYC'
+        },
+        {
+          from: [114.0579, 22.5431], // Shenzhen manufacturing
+          to: [139.7, 35.67],        // Tokyo stores
+          type: 'supply',
+          label: 'Manufacturing → Tokyo'
+        },
+        {
+          from: [114.0579, 22.5431], // Shenzhen manufacturing
+          to: [121.47, 31.23],       // Shanghai stores
+          type: 'supply',
+          label: 'Manufacturing → Shanghai'
+        },
+        {
+          from: [114.0579, 22.5431], // Shenzhen manufacturing
+          to: [-118.24, 34.05],      // LA stores
+          type: 'supply',
+          label: 'Manufacturing → LA'
+        },
+        {
+          from: [121.5654, 25.0330], // Taiwan manufacturing
+          to: [-73.97, 40.77],       // NYC stores
+          type: 'supply',
+          label: 'Manufacturing → NYC'
+        },
+        {
+          from: [121.5654, 25.0330], // Taiwan manufacturing
+          to: [139.7, 35.67],        // Tokyo stores
+          type: 'supply',
+          label: 'Manufacturing → Tokyo'
+        },
+        {
+          from: [121.5654, 25.0330], // Taiwan manufacturing
+          to: [121.47, 31.23],       // Shanghai stores
+          type: 'supply',
+          label: 'Manufacturing → Shanghai'
+        },
+        {
+          from: [121.5654, 25.0330], // Taiwan manufacturing
+          to: [-118.24, 34.05],      // LA stores
+          type: 'supply',
+          label: 'Manufacturing → LA'
+        },
+        
+        // Influence connections (thin lines) - ALL NODES CONNECTED
+        {
+          from: [45.0792, 24.7136], // Saudi Arabia oil
+          to: [-73.97, 40.77],       // NYC stores
+          type: 'influence',
+          label: 'Oil prices → NYC'
+        },
+        {
+          from: [37.6173, 55.7558], // Russia oil
+          to: [139.7, 35.67],        // Tokyo stores
+          type: 'influence',
+          label: 'Sanctions → Tokyo'
+        },
+        {
+          from: [-98.5795, 39.8283], // USA oil
+          to: [-118.24, 34.05],      // LA stores
+          type: 'influence',
+          label: 'Energy policy → LA'
+        },
+        {
+          from: [103.8198, 1.3521], // Singapore ethylene
+          to: [121.47, 31.23],       // Shanghai stores
+          type: 'influence',
+          label: 'Shipping costs → Shanghai'
+        },
+        {
+          from: [120.1551, 30.2741], // China PVC
+          to: [121.47, 31.23],       // Shanghai stores
+          type: 'influence',
+          label: 'Production costs → Shanghai'
+        },
+        {
+          from: [-87.6298, 41.8781], // USA PVC
+          to: [-73.97, 40.77],       // NYC stores
+          type: 'influence',
+          label: 'Trade tariffs → NYC'
+        },
+        {
+          from: [114.0579, 22.5431], // Shenzhen manufacturing
+          to: [-118.24, 34.05],      // LA stores
+          type: 'influence',
+          label: 'Labor conditions → LA'
+        },
+        {
+          from: [114.0579, 22.5431], // Shenzhen manufacturing
+          to: [139.7, 35.67],        // Tokyo stores
+          type: 'influence',
+          label: 'Quality control → Tokyo'
+        },
+        {
+          from: [113.2806, 23.1291], // China ethylene
+          to: [121.47, 31.23],       // Shanghai stores
+          type: 'influence',
+          label: 'Government subsidies → Shanghai'
+        },
+        {
+          from: [116.4074, 39.9042], // China chlorine
+          to: [121.47, 31.23],       // Shanghai stores
+          type: 'influence',
+          label: 'Environmental impact → Shanghai'
+        },
+        {
+          from: [-95.7129, 37.0902], // USA chlorine
+          to: [-73.97, 40.77],       // NYC stores
+          type: 'influence',
+          label: 'EPA oversight → NYC'
+        },
+        {
+          from: [121.5654, 25.0330], // Taiwan manufacturing
+          to: [139.7, 35.67],        // Tokyo stores
+          type: 'influence',
+          label: 'IP protection → Tokyo'
+        },
+        {
+          from: [121.5654, 25.0330], // Taiwan manufacturing
+          to: [-73.97, 40.77],       // NYC stores
+          type: 'influence',
+          label: 'Higher quality → NYC'
+        }
+      ];
+
+      // Add connection lines source
+      map.addSource('connections', {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: connections.map(conn => ({
+            type: 'Feature',
+            properties: {
+              type: conn.type,
+              label: conn.label
+            },
+            geometry: {
+              type: 'LineString',
+              coordinates: [conn.from, conn.to]
+            }
+          }))
+        }
+      });
+
+      // Add supply chain lines (thick, solid)
+      map.addLayer({
+        id: 'supply-lines',
+        type: 'line',
+        source: 'connections',
+        filter: ['==', ['get', 'type'], 'supply'],
+        paint: {
+          'line-color': '#ff6b6b',
+          'line-width': 3,
+          'line-opacity': 0.8
+        }
+      });
+
+      // Add influence lines (thin, dashed)
+      map.addLayer({
+        id: 'influence-lines',
+        type: 'line',
+        source: 'connections',
+        filter: ['==', ['get', 'type'], 'influence'],
+        paint: {
+          'line-color': '#4ecdc4',
+          'line-width': 1,
+          'line-opacity': 0.6,
+          'line-dasharray': [2, 2]
+        }
+      });
+
+      // Add line labels with better positioning
+      map.addLayer({
+        id: 'line-labels',
+        type: 'symbol',
+        source: 'connections',
+        layout: {
+          'text-field': ['get', 'label'],
+          'text-size': 8,
+          'text-offset': [0, 0],
+          'text-anchor': 'center',
+          'text-allow-overlap': false,
+          'symbol-placement': 'line-center'
+        },
+        paint: {
+          'text-color': '#333',
+          'text-halo-color': '#fff',
+          'text-halo-width': 2,
+          'text-opacity': 0.9
+        }
+      });
+
+      // Initially hide connection lines
+      map.setLayoutProperty('supply-lines', 'visibility', 'none');
+      map.setLayoutProperty('influence-lines', 'visibility', 'none');
+      map.setLayoutProperty('line-labels', 'visibility', 'none');
     }
   </script>
 </body>
