@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toy's Emotional Journey - Supply Chain Transparency</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
+            color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .canvas-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        canvas {
+            border: 2px solid #333;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+        
+        .controls {
+            margin: 20px 0;
+        }
+        
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 0 10px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        button:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .journey-info {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stage-display {
+            font-size: 1.2em;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        
+        .cost-display {
+            font-size: 1.1em;
+            color: #ffeb3b;
+        }
+        
+        .emotion-display {
+            font-size: 2em;
+            margin: 10px 0;
+        }
+        
+        .thought-display {
+            font-style: italic;
+            margin: 10px 0;
+            color: #e3f2fd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧸 Toy's Emotional Journey Through the Supply Chain 🧸</h1>
+        
+        <div class="canvas-container">
+            <canvas id="journeyCanvas" width="1000" height="600"></canvas>
+        </div>
+        
+        <div class="controls">
+            <button onclick="startAnimation()">🚀 Start Journey</button>
+            <button onclick="pauseAnimation()">⏸️ Pause</button>
+            <button onclick="resetAnimation()">🔄 Reset</button>
+            <button onclick="skipToEnd()">🚨 Skip to Truth</button>
+        </div>
+        
+        <div class="journey-info">
+            <div class="stage-display" id="stageDisplay">Ready to begin the journey...</div>
+            <div class="cost-display" id="costDisplay">Cost: $0.00</div>
+            <div class="emotion-display" id="emotionDisplay">😊</div>
+            <div class="thought-display" id="thoughtDisplay">Press Start to begin the toy's emotional journey...</div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('journeyCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Supply chain stages
+        const stages = [
+            {name: "Oil (Saudi Arabia)", x: 100, y: 500, cost: 0.45, emotion: "😰", color: "#000000", thought: "I'm just black goo... what am I becoming?"},
+            {name: "Refining (Singapore)", x: 200, y: 500, cost: 0.53, emotion: "✨", color: "#808080", thought: "I'm being transformed! This is exciting!"},
+            {name: "Ethylene (China)", x: 300, y: 500, cost: 0.08, emotion: "🤔", color: "#87CEEB", thought: "I'm becoming something new... but what?"},
+            {name: "PVC Creation", x: 400, y: 500, cost: 0.55, emotion: "😕", color: "#FFFFFF", thought: "I'm plastic now... is this who I am?"},
+            {name: "Mold Injection", x: 500, y: 500, cost: 1.93, emotion: "😣", color: "#FFC0CB", thought: "I'm being forced into a shape! This hurts!"},
+            {name: "Painting", x: 600, y: 500, cost: 0.08, emotion: "🎨", color: "#FFFF00", thought: "I'm getting my face! I'm becoming someone!"},
+            {name: "Assembly", x: 200, y: 350, cost: 0.55, emotion: "😊", color: "#90EE90", thought: "I have friends! We're all the same!"},
+            {name: "Quality Check", x: 400, y: 350, cost: 0.08, emotion: "😰", color: "#FFA500", thought: "Am I good enough? Will I be chosen?"},
+            {name: "Packaging", x: 600, y: 350, cost: 0.08, emotion: "🤷‍♂️", color: "#800080", thought: "I'm being wrapped up... where am I going?"},
+            {name: "Shipping", x: 800, y: 350, cost: 0.53, emotion: "🌍", color: "#0000FF", thought: "I'm traveling the world! This is amazing!"},
+            {name: "Store Shelf", x: 500, y: 200, cost: 0.08, emotion: "👀", color: "#FF0000", thought: "I'm on display! People are looking at me!"},
+            {name: "Price Discovery", x: 500, y: 50, cost: 745, emotion: "😱", color: "#8B0000", thought: "Wait... $745? For ME? That can't be right..."}
+        ];
+        
+        let currentStage = 0;
+        let animationId = null;
+        let isPaused = false;
+        let totalCost = 0;
+        let toyX = stages[0].x;
+        let toyY = stages[0].y;
+        let toyColor = stages[0].color;
+        let toyEmotion = stages[0].emotion;
+        
+        function drawStage(stage, index) {
+            // Draw stage circle
+            ctx.beginPath();
+            ctx.arc(stage.x, stage.y, 30, 0, 2 * Math.PI);
+            ctx.fillStyle = stage.color;
+            ctx.fill();
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Draw stage name
+            ctx.fillStyle = '#333';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(stage.name, stage.x, stage.y + 50);
+            
+            // Draw cost
+            ctx.fillStyle = '#666';
+            ctx.font = '10px Arial';
+            ctx.fillText(`$${stage.cost.toFixed(2)}`, stage.x, stage.y - 40);
+            
+            // Draw emotion
+            ctx.font = '20px Arial';
+            ctx.fillText(stage.emotion, stage.x, stage.y);
+        }
+        
+        function drawToy() {
+            // Draw toy circle
+            ctx.beginPath();
+            ctx.arc(toyX, toyY, 35, 0, 2 * Math.PI);
+            ctx.fillStyle = toyColor;
+            ctx.fill();
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            
+            // Draw toy emotion
+            ctx.font = '24px Arial';
+            ctx.fillText(toyEmotion, toyX, toyY + 8);
+        }
+        
+        function drawConnections() {
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 5]);
+            
+            for (let i = 0; i < stages.length - 1; i++) {
+                ctx.beginPath();
+                ctx.moveTo(stages[i].x, stages[i].y);
+                ctx.lineTo(stages[i + 1].x, stages[i + 1].y);
+                ctx.stroke();
+            }
+            
+            ctx.setLineDash([]);
+        }
+        
+        function updateDisplay() {
+            const stage = stages[currentStage];
+            document.getElementById('stageDisplay').textContent = `Stage ${currentStage + 1}: ${stage.name}`;
+            document.getElementById('costDisplay').textContent = `Cost: $${totalCost.toFixed(2)}`;
+            document.getElementById('emotionDisplay').textContent = stage.emotion;
+            document.getElementById('thoughtDisplay').textContent = stage.thought;
+        }
+        
+        function animate() {
+            if (isPaused) return;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw all stages
+            stages.forEach((stage, index) => {
+                drawStage(stage, index);
+            });
+            
+            // Draw connections
+            drawConnections();
+            
+            // Animate toy movement
+            const targetStage = stages[currentStage];
+            const dx = targetStage.x - toyX;
+            const dy = targetStage.y - toyY;
+            
+            if (Math.abs(dx) > 1 || Math.abs(dy) > 1) {
+                toyX += dx * 0.05;
+                toyY += dy * 0.05;
+            } else {
+                // Reached target stage
+                toyX = targetStage.x;
+                toyY = targetStage.y;
+                toyColor = targetStage.color;
+                toyEmotion = targetStage.emotion;
+                totalCost += targetStage.cost;
+                
+                if (currentStage < stages.length - 1) {
+                    currentStage++;
+                } else {
+                    // Animation complete
+                    showFinalReveal();
+                    return;
+                }
+            }
+            
+            drawToy();
+            updateDisplay();
+            
+            animationId = requestAnimationFrame(animate);
+        }
+        
+        function showFinalReveal() {
+            ctx.fillStyle = 'rgba(255, 0, 0, 0.9)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 48px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('🚨 THE SHOCKING TRUTH REVEALED! 🚨', canvas.width/2, 150);
+            
+            ctx.font = 'bold 24px Arial';
+            ctx.fillText(`Material Cost: $8.84`, canvas.width/2, 200);
+            ctx.fillText(`Collector Price: $745`, canvas.width/2, 230);
+            ctx.fillText(`MARKUP: 84x!`, canvas.width/2, 260);
+            ctx.fillText(`Psychology drives 72% of value`, canvas.width/2, 290);
+            ctx.fillText(`Material costs are only 1.2% of price`, canvas.width/2, 320);
+            
+            ctx.font = 'bold 20px Arial';
+            ctx.fillText('😱 The toy is having an existential crisis!', canvas.width/2, 380);
+            ctx.fillText('"I\'ve been living a lie... everything is artificial!"', canvas.width/2, 410);
+            
+            document.getElementById('stageDisplay').textContent = '🚨 THE SHOCKING TRUTH REVEALED! 🚨';
+            document.getElementById('costDisplay').textContent = 'Material Cost: $8.84 | Store Price: $745';
+            document.getElementById('emotionDisplay').textContent = '😱';
+            document.getElementById('thoughtDisplay').textContent = 'I\'ve been living a lie... everything is artificial!';
+        }
+        
+        function startAnimation() {
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
+            isPaused = false;
+            currentStage = 0;
+            totalCost = 0;
+            toyX = stages[0].x;
+            toyY = stages[0].y;
+            toyColor = stages[0].color;
+            toyEmotion = stages[0].emotion;
+            animate();
+        }
+        
+        function pauseAnimation() {
+            isPaused = !isPaused;
+            if (!isPaused) {
+                animate();
+            }
+        }
+        
+        function resetAnimation() {
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
+            currentStage = 0;
+            totalCost = 0;
+            toyX = stages[0].x;
+            toyY = stages[0].y;
+            toyColor = stages[0].color;
+            toyEmotion = stages[0].emotion;
+            updateDisplay();
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stages.forEach((stage, index) => {
+                drawStage(stage, index);
+            });
+            drawConnections();
+            drawToy();
+        }
+        
+        function skipToEnd() {
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
+            currentStage = stages.length - 1;
+            totalCost = 8.84;
+            showFinalReveal();
+        }
+        
+        // Initialize
+        resetAnimation();
+    </script>
+</body>
+</html> 

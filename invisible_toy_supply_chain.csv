@@ -1,0 +1,31 @@
+Stage,Process,Location,Description,Cost_Per_Unit,Cost_Type,Visibility,Environmental_Impact,Social_Impact,Complexity_Score
+1.1,Crude Oil Extraction,Saudi Arabia/Russia/USA,Base feedstock for plastic. 1 barrel = 159 liters,$80-100 per barrel,Raw Material,Invisible,High - CO2 emissions,Low - Limited local employment,8
+1.2,Oil Transportation,Global Shipping Routes,Maritime transport of crude oil,$5-15 per barrel,Logistics,Invisible,Medium - Shipping emissions,Medium - Maritime jobs,6
+1.3,Ethylene Production,Singapore/China/USA,Cracked from oil or natural gas. Key monomer in plastics,$900 per ton,Chemical Processing,Invisible,High - Chemical emissions,Medium - Industrial jobs,9
+1.4,PVC Resin Manufacturing,China/Germany/USA,Ethylene + chlorine = PVC (Polyvinyl Chloride),$1100-1300 per ton,Chemical Processing,Invisible,High - Toxic byproducts,Medium - Factory jobs,9
+2.1,Pigment Production,China/India,Black, Red, Blue pigments for coloring,$0.05-0.10 per toy,Additive,Invisible,Medium - Chemical waste,Low - Minimal employment,5
+2.2,Plasticizer Manufacturing,China/Germany,Make PVC flexible and durable,$0.02-0.06 per toy,Additive,Invisible,Medium - Chemical leaching,Low - Specialized jobs,7
+2.3,Stabilizer Production,China/USA,Prevent yellowing and degradation,$0.01-0.03 per toy,Additive,Invisible,Low - Minimal impact,Low - Research jobs,4
+3.1,Artist Prototyping,Global Studios,KAWS creates clay or 3D models,$500-2000 per design,Design,Visible,Low - Minimal impact,High - Creative employment,3
+3.2,Master Mold Creation,China/Germany,CNC-machined steel mold (5-6 parts per toy),$3000-8000 total,Capital Investment,Invisible,Medium - Steel production,Medium - Skilled manufacturing,8
+3.3,Mold Amortization,Factory,Cost spread across 10,000+ units,$0.30-0.80 per toy,Depreciation,Invisible,Low - Spread impact,Low - Accounting complexity,6
+4.1,PVC Heating/Injection,Guangdong/Dongguan/Shenzhen,Molded under high temperature and pressure,$0.40 per toy,Manufacturing,Invisible,High - Energy consumption,High - Factory employment,8
+4.2,Cooling and Demolding,Factory Floor,Labor + machinery for part removal,$0.15 per toy,Manufacturing,Invisible,Medium - Energy use,Medium - Manual labor,5
+4.3,Trimming and Assembly,Assembly Line,Remove flash, glue arms/legs together,$0.25 per toy,Manufacturing,Invisible,Low - Minimal waste,High - Labor intensive,4
+4.4,Painting Process,Art Department,Airbrush/stencil for signature KAWS look,$0.50-1.00 per toy,Artistic,Partially Visible,Medium - Paint fumes,Medium - Skilled artists,6
+4.5,Quality Control,QC Department,Inspection and testing procedures,$0.25-0.50 per toy,Quality Assurance,Invisible,Low - Minimal impact,Medium - QC jobs,5
+5.1,Ocean Freight,Global Shipping,~0.03 cubic meters per toy,$0.15-0.30 per toy,Logistics,Invisible,High - Shipping emissions,Medium - Maritime jobs,7
+5.2,Import Duties,Tariff Collection,~3% on vinyl toys,$0.15 per toy,Tax,Invisible,Low - Government revenue,Low - Administrative,3
+5.3,Domestic Distribution,USA Trucking,Trucks to warehouse and retail,$0.10-0.20 per toy,Logistics,Invisible,Medium - Truck emissions,Medium - Transportation jobs,5
+6.1,Warehouse Storage,Distribution Centers,Inventory management and storage,$0.05-0.10 per toy,Storage,Invisible,Low - Minimal impact,Low - Warehouse jobs,3
+6.2,Retail Markup,Retail Stores,Store overhead and profit margin,$5-15 per toy,Profit,Visible,Low - Store operations,Medium - Retail jobs,4
+6.3,Marketing and Branding,Global Marketing,KAWS brand value and marketing,$2-8 per toy,Brand Value,Partially Visible,Low - Marketing emissions,Medium - Creative jobs,5
+7.1,Intellectual Property,Legal Systems,KAWS design rights and licensing,$1-3 per toy,Legal,Invisible,Low - Legal processes,Low - Legal jobs,7
+7.2,Environmental Compliance,Regulatory Bodies,Waste disposal and emissions control,$0.10-0.20 per toy,Compliance,Invisible,High - Environmental protection,Medium - Regulatory jobs,8
+7.3,Worker Safety,Factory Standards,Occupational health and safety,$0.05-0.15 per toy,Safety,Invisible,Low - Safety equipment,High - Worker protection,6
+8.1,Research and Development,Design Studios,New product development and testing,$0.50-1.50 per toy,R&D,Invisible,Low - Development impact,High - Creative jobs,7
+8.2,Market Research,Analytics Firms,Consumer behavior and trend analysis,$0.20-0.50 per toy,Research,Invisible,Low - Data processing,Medium - Research jobs,5
+8.3,Supply Chain Management,Global Operations,Coordination of all supply chain elements,$0.30-0.60 per toy,Management,Invisible,Low - Coordination,Medium - Management jobs,8
+9.1,Currency Fluctuation,Financial Markets,Exchange rate impacts on costs,$0.10-0.30 per toy,Financial,Invisible,Low - Market volatility,Low - Financial jobs,6
+9.2,Insurance and Risk,Insurance Companies,Product liability and supply chain insurance,$0.15-0.25 per toy,Risk Management,Invisible,Low - Risk mitigation,Low - Insurance jobs,5
+9.3,Regulatory Changes,Government Bodies,Compliance with changing regulations,$0.05-0.15 per toy,Compliance,Invisible,Low - Regulatory updates,Low - Compliance jobs,7 
