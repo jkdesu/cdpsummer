@@ -64,4 +64,76 @@ main {
 
 h1, h2 {
   margin-top: 0;
+}
+
+/* Common section layout class with increased fixed height for presentation slides */
+.section-layout {
+  margin: 40px 0;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  height: 800px;
+  overflow-y: auto;
+}
+
+.section-layout h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+.section-layout h3 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Custom height for analysis sections that need more space */
+.section-layout-tall {
+  margin: 40px 0;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  height: 1000px;
+  overflow-y: auto;
+}
+
+.section-layout-tall h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+.section-layout-tall h3 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Extra tall section for analysis visualizations */
+.section-layout-extra-tall {
+  margin: 40px 0;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  height: 1200px;
+  overflow-y: auto;
+}
+
+.section-layout-extra-tall h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+.section-layout-extra-tall h3 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
 } 

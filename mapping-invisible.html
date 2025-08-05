@@ -33,20 +33,20 @@
               <h1 style="text-align: center; color: #333; margin-bottom: 30px;">Mapping Invisible</h1>
       
               <!-- Final Project Images Section -->
-        <section class="images-section" style="margin: 40px 0; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+        <section class="images-section section-layout">
           
-          <div class="slideshow-container" style="max-width: 1400px; margin: 0 auto; position: relative;">
+          <div class="slideshow-container" style="max-width: 1400px; height: 750px; margin: 0 auto; position: relative;">
             
-            <div class="slide" style="display: block; text-align: center;">
-              <img src="fp1.png" alt="Final Project Image 1" style="max-width: 100%; height: auto; object-fit: contain;">
+            <div class="slide" style="display: block; text-align: center; height: 100%; display: flex; align-items: center; justify-content: center;">
+              <img src="fp1.png" alt="Final Project Image 1" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
             
-            <div class="slide" style="display: none; text-align: center;">
-              <img src="fp2.png" alt="Final Project Image 2" style="max-width: 100%; height: auto; object-fit: contain;">
+            <div class="slide" style="display: none; text-align: center; height: 100%; display: flex; align-items: center; justify-content: center;">
+              <img src="fp2.png" alt="Final Project Image 2" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
             
-            <div class="slide" style="display: none; text-align: center;">
-              <img src="fp3.png" alt="Final Project Image 3" style="max-width: 100%; height: auto; object-fit: contain;">
+            <div class="slide" style="display: none; text-align: center; height: 100%; display: flex; align-items: center; justify-content: center;">
+              <img src="fp3.png" alt="Final Project Image 3" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
             
 
@@ -101,121 +101,97 @@
       </section>
       
       <!-- Research Questions Section -->
-      <section class="research-questions" style="margin: 40px 0; padding: 30px; background: #f8f9fa; border-radius: 10px;">
-        <h2 style="text-align: center; color: #333; margin-bottom: 40px; font-size: 24px;">Research Question</h2>
+      <section class="research-questions section-layout">
+        <h2>Research Question</h2>
         
-        <div style="max-width: 1400px; margin: 0 auto;">
-          <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-            <ul style="font-size: 16px; line-height: 1.6; color: #333; margin: 0; padding-left: 20px;">
-              <li style="margin-bottom: 15px;">How do invisible infrastructures—from factory labor and material chains to digital sentiment and algorithmic hype—shape the value, psychology, and cultural meaning of collectible designer toys?</li>
+        <div style="max-width: 1400px; height: 600px; margin: 80px auto 0 auto; display: flex; align-items: center; justify-content: center;">
+          <div style="background: white; padding: 60px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <ul style="font-size: 24px; line-height: 2.0; color: #333; margin: 0; padding-left: 40px;">
+              <li style="margin-bottom: 35px;">How do invisible infrastructures—from factory labor and material chains to digital sentiment and algorithmic hype—shape the value, psychology, and cultural meaning of collectible designer toys?</li>
               <li>If hidden systems became transparent, would we still pay the premium, still collect? How does transparency challenge the legitimacy of collectible culture's pricing models?</li>
             </ul>
           </div>
         </div>
       </section>
       
-      <!-- Interactive Historical Timeline Section -->
-      <section class="timeline-section" style="margin: 40px 0; padding: 20px; background: #f8f9fa; border-radius: 10px;">
-        <h2 style="text-align: center; color: #333; margin-bottom: 30px;">Historical Timeline</h2>
+      <!-- Historical Timeline Section -->
+      <section class="timeline-section section-layout">
+        <h2>Historical Timeline</h2>
         
-                  <div class="timeline-container" style="max-width: 1400px; margin: 0 auto; position: relative;">
+        <div class="timeline-container" style="max-width: 1400px; margin: 0 auto;">
           
-          <!-- Timeline Track -->
-          <div class="timeline-track" style="position: relative; height: 300px; margin: 10px 0;">
+          <!-- 20th Century Section -->
+          <div class="century-section" style="margin-bottom: 60px;">
+            <h3 style="color: #007bff; margin-bottom: 30px; text-align: center; font-size: 18px;">20th Century – Consumer Collectibles & Mass Media</h3>
             
-            <!-- 20th Century Section -->
-            <div class="century-section" style="margin-bottom: 15px;">
-              <h3 style="color: #007bff; margin-bottom: 5px; text-align: center; font-size: 14px;">20th Century – Consumer Collectibles & Mass Media</h3>
-              
-              <!-- Early 1900s -->
-              <div class="timeline-item" style="position: absolute; left: 5%; width: 20%; top: 45px;">
-                <div class="timeline-marker" onclick="showDetails('early1900s')" style="width: 12px; height: 12px; background: #ff6b6b; border-radius: 50%; cursor: pointer; margin: 0 auto 3px;"></div>
-                <div class="timeline-content" style="background: white; padding: 8px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); text-align: center;">
-                  <h4 style="margin: 0 0 3px; color: #333; font-size: 12px;">1910–1930</h4>
-                  <p style="margin: 0; font-size: 10px; color: #666;">Trading Cards, Toys, Comics</p>
+            <!-- 20th Century Images Row -->
+            <div style="display: flex; justify-content: space-between; gap: 20px;">
+              <div style="flex: 1; text-align: center;">
+                <img src="history/baseballcards.jpg" alt="1910-1930" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div style="margin-top: 15px;">
+                  <h4 style="margin: 0 0 5px; color: #333; font-size: 16px; font-weight: bold;">1910–1930</h4>
+                  <p style="margin: 0; font-size: 14px; color: #666;">Trading Cards, Toys, Comics</p>
                 </div>
               </div>
-              
-              <!-- Mid 1900s -->
-              <div class="timeline-item" style="position: absolute; left: 30%; width: 20%; top: 45px;">
-                <div class="timeline-marker" onclick="showDetails('mid1900s')" style="width: 12px; height: 12px; background: #4ecdc4; border-radius: 50%; cursor: pointer; margin: 0 auto 3px;"></div>
-                <div class="timeline-content" style="background: white; padding: 8px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); text-align: center;">
-                  <h4 style="margin: 0 0 3px; color: #333; font-size: 12px;">1945–1960</h4>
-                  <p style="margin: 0; font-size: 10px; color: #666;">Post-War Boom</p>
+              <div style="flex: 1; text-align: center;">
+                <img src="history/barbie.jpg" alt="1945-1960" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div style="margin-top: 15px;">
+                  <h4 style="margin: 0 0 5px; color: #333; font-size: 16px; font-weight: bold;">1945–1960</h4>
+                  <p style="margin: 0; font-size: 14px; color: #666;">Post-War Boom</p>
                 </div>
               </div>
-              
-              <!-- Late 1900s -->
-              <div class="timeline-item" style="position: absolute; left: 55%; width: 20%; top: 45px;">
-                <div class="timeline-marker" onclick="showDetails('late1900s')" style="width: 12px; height: 12px; background: #45b7d1; border-radius: 50%; cursor: pointer; margin: 0 auto 3px;"></div>
-                <div class="timeline-content" style="background: white; padding: 8px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); text-align: center;">
-                  <h4 style="margin: 0 0 3px; color: #333; font-size: 12px;">1977</h4>
-                  <p style="margin: 0; font-size: 10px; color: #666;">Star Wars Revolution</p>
+              <div style="flex: 1; text-align: center;">
+                <img src="history/starwars.jpeg" alt="1977" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div style="margin-top: 15px;">
+                  <h4 style="margin: 0 0 5px; color: #333; font-size: 16px; font-weight: bold;">1977</h4>
+                  <p style="margin: 0; font-size: 14px; color: #666;">Star Wars Revolution</p>
                 </div>
               </div>
-              
-              <!-- Be@rbrick Era -->
-              <div class="timeline-item" style="position: absolute; left: 80%; width: 20%; top: 45px;">
-                <div class="timeline-marker" onclick="showDetails('bearbrick')" style="width: 12px; height: 12px; background: #96ceb4; border-radius: 50%; cursor: pointer; margin: 0 auto 3px;"></div>
-                <div class="timeline-content" style="background: white; padding: 8px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); text-align: center;">
-                  <h4 style="margin: 0 0 3px; color: #333; font-size: 12px;">1999–2003</h4>
-                  <p style="margin: 0; font-size: 10px; color: #666;">Be@rbrick & Kidrobot</p>
+              <div style="flex: 1; text-align: center;">
+                <img src="history/bearbricks.jpg" alt="1999-2003" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div style="margin-top: 15px;">
+                  <h4 style="margin: 0 0 5px; color: #333; font-size: 16px; font-weight: bold;">1999–2003</h4>
+                  <p style="margin: 0; font-size: 14px; color: #666;">Be@rbrick & Kidrobot</p>
                 </div>
               </div>
             </div>
-            
-            <!-- 21st Century Section -->
-            <div class="century-section" style="margin-top: 100px;">
-              <h3 style="color: #007bff; margin-bottom: 5px; text-align: center; font-size: 14px;">21st Century – Collectibles as Capital</h3>
-              
-              <!-- Digital Platforms -->
-              <div class="timeline-item" style="position: absolute; left: 5%; width: 20%; top: 150px;">
-                <div class="timeline-marker" onclick="showDetails('digital')" style="width: 12px; height: 12px; background: #feca57; border-radius: 50%; cursor: pointer; margin: 0 auto 3px;"></div>
-                <div class="timeline-content" style="background: white; padding: 8px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); text-align: center;">
-                  <h4 style="margin: 0 0 3px; color: #333; font-size: 12px;">2006–2010</h4>
-                  <p style="margin: 0; font-size: 10px; color: #666;">Digital Platforms</p>
-                </div>
-              </div>
-              
-              <!-- Gamification -->
-              <div class="timeline-item" style="position: absolute; left: 30%; width: 20%; top: 150px;">
-                <div class="timeline-marker" onclick="showDetails('gamification')" style="width: 12px; height: 12px; background: #ff9ff3; border-radius: 50%; cursor: pointer; margin: 0 auto 3px;"></div>
-                <div class="timeline-content" style="background: white; padding: 8px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); text-align: center;">
-                  <h4 style="margin: 0 0 3px; color: #333; font-size: 12px;">2010–2017</h4>
-                  <p style="margin: 0; font-size: 10px; color: #666;">Gamification</p>
-                </div>
-              </div>
-              
-              <!-- NFTs -->
-              <div class="timeline-item" style="position: absolute; left: 55%; width: 20%; top: 150px;">
-                <div class="timeline-marker" onclick="showDetails('nfts')" style="width: 12px; height: 12px; background: #54a0ff; border-radius: 50%; cursor: pointer; margin: 0 auto 3px;"></div>
-                <div class="timeline-content" style="background: white; padding: 8px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); text-align: center;">
-                  <h4 style="margin: 0 0 3px; color: #333; font-size: 12px;">2017–2021</h4>
-                  <p style="margin: 0; font-size: 10px; color: #666;">NFTs & Blockchain</p>
-                </div>
-              </div>
-              
-              <!-- Social Media -->
-              <div class="timeline-item" style="position: absolute; left: 80%; width: 20%; top: 150px;">
-                <div class="timeline-marker" onclick="showDetails('social')" style="width: 12px; height: 12px; background: #5f27cd; border-radius: 50%; cursor: pointer; margin: 0 auto 3px;"></div>
-                <div class="timeline-content" style="background: white; padding: 8px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); text-align: center;">
-                  <h4 style="margin: 0 0 3px; color: #333; font-size: 12px;">Present</h4>
-                  <p style="margin: 0; font-size: 10px; color: #666;">Social Media Flex</p>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Connection Lines -->
-            <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
-              <line x1="10%" y1="50" x2="90%" y2="50" stroke="#ddd" stroke-width="1"/>
-              <line x1="10%" y1="160" x2="90%" y2="160" stroke="#ddd" stroke-width="1"/>
-            </svg>
           </div>
           
-          <!-- Details Panel -->
-          <div id="details-panel" style="background: white; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); padding: 8px; margin-top: 5px; display: none;">
-            <h3 id="detail-title" style="margin: 0 0 3px; color: #333; font-size: 12px;"></h3>
-            <div id="detail-content" style="color: #666; line-height: 1.2; font-size: 10px;"></div>
+          <!-- 21st Century Section -->
+          <div class="century-section">
+            <h3 style="color: #007bff; margin-bottom: 30px; text-align: center; font-size: 18px;">21st Century – Collectibles as Capital</h3>
+            
+            <!-- 21st Century Images Row -->
+            <div style="display: flex; justify-content: space-between; gap: 20px;">
+              <div style="flex: 1; text-align: center;">
+                <img src="history/stockx.jpg" alt="2006-2010" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div style="margin-top: 15px;">
+                  <h4 style="margin: 0 0 5px; color: #333; font-size: 16px; font-weight: bold;">2006–2010</h4>
+                  <p style="margin: 0; font-size: 14px; color: #666;">Digital Platforms</p>
+                </div>
+              </div>
+              <div style="flex: 1; text-align: center;">
+                <img src="history/gamification.jpg" alt="2010-2017" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div style="margin-top: 15px;">
+                  <h4 style="margin: 0 0 5px; color: #333; font-size: 16px; font-weight: bold;">2010–2017</h4>
+                  <p style="margin: 0; font-size: 14px; color: #666;">Gamification</p>
+                </div>
+              </div>
+              <div style="flex: 1; text-align: center;">
+                <img src="history/cryptopunks.jpg" alt="2017-2021" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div style="margin-top: 15px;">
+                  <h4 style="margin: 0 0 5px; color: #333; font-size: 16px; font-weight: bold;">2017–2021</h4>
+                  <p style="margin: 0; font-size: 14px; color: #666;">NFTs & Blockchain</p>
+                </div>
+              </div>
+              <div style="flex: 1; text-align: center;">
+                <img src="history/liltay.jpg" alt="Present" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div style="margin-top: 15px;">
+                  <h4 style="margin: 0 0 5px; color: #333; font-size: 16px; font-weight: bold;">Present</h4>
+                  <p style="margin: 0; font-size: 14px; color: #666;">Social Media Flex</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -321,24 +297,28 @@
         </script>
       </section>
       
-      <!-- Toy Map Section -->
-      <section class="toy-map-section" style="margin: 40px 0; padding: 20px; background: #f8f9fa; border-radius: 10px;">
-        <h2 style="text-align: center; color: #333; margin-bottom: 30px;">There are more layers than what sits on the storefront...</h2>
+      <!-- Toy Map Image Section -->
+      <section class="toy-map-image-section section-layout">
+        <h2>There are more layers than what sits on the storefront...</h2>
         
-                  <div class="image-container" style="max-width: 1400px; margin: 0 auto; text-align: center;">
-          <img src="ant.png" alt="Ant" style="max-width: 100%; height: auto; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <div class="image-container" style="max-width: 1400px; margin: 0 auto; text-align: center; height: calc(100% - 80px); display: flex; align-items: center; justify-content: center;">
+          <img src="ant.png" alt="Ant" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
         </div>
+      </section>
+      
+      <!-- Interactive Map Section -->
+      <section class="interactive-map-section section-layout">
+        <h2>Interactive Material Chain Map</h2>
         
-        <!-- Interactive Map Section -->
-                  <div class="map-container" style="max-width: 1400px; margin: 30px auto; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <div class="map-container" style="max-width: 1400px; margin: 0 auto; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
           <div id="map" style="width: 100%; height: 600px;"></div>
         </div>
         
         <!-- Map Controls -->
-        <div class="map-controls" style="text-align: center; margin-top: 50px;">
-          <button onclick="toggleLayer('toy-stores')" style="margin: 10px; padding: 15px 30px; background: #007bff; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 18px;">Toy Stores</button>
-          <button onclick="toggleLayer('material-chain')" style="margin: 10px; padding: 15px 30px; background: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 18px;">Material Chain</button>
-          <button onclick="toggleLayer('both')" style="margin: 10px; padding: 15px 30px; background: #dc3545; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 18px;">Show Both</button>
+        <div class="map-controls" style="text-align: center; margin-top: 30px;">
+          <button onclick="toggleLayer('toy-stores')" style="margin: 10px; padding: 20px 40px; background: #007bff; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 20px;">Toy Stores</button>
+          <button onclick="toggleLayer('material-chain')" style="margin: 10px; padding: 20px 40px; background: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 20px;">Material Chain</button>
+          <button onclick="toggleLayer('both')" style="margin: 10px; padding: 20px 40px; background: #dc3545; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 20px;">Show Both</button>
         </div>
       </section>
       
@@ -989,47 +969,11 @@
         }
       </script>
       
-      <!-- Psychology of a Collector Section -->
-      <section class="psychology-section" style="margin: 40px 0; padding: 20px; background: #f8f9fa; border-radius: 10px;">
-        <h2 style="text-align: center; color: #333; margin-bottom: 50px; font-size: 24px;">Psychology of a Collector</h2>
-        
-        <div class="table-container" style="max-width: 1400px; margin: 0 auto;">
-          <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-            <thead>
-              <tr style="background: #007bff; color: white;">
-                <th style="padding: 20px; text-align: left; font-size: 18px; font-weight: bold;">Psychology Type</th>
-                <th style="padding: 20px; text-align: left; font-size: 18px; font-weight: bold;">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="border-bottom: 1px solid #eee;">
-                <td style="padding: 20px; font-weight: bold; color: #007bff; font-size: 16px;">Completionist</td>
-                <td style="padding: 20px; font-size: 16px; line-height: 1.5;">Seek consistency and completeness for the need for reward and psychological closure.</td>
-              </tr>
-              <tr style="border-bottom: 1px solid #eee; background: #f8f9fa;">
-                <td style="padding: 20px; font-weight: bold; color: #dc3545; font-size: 16px;">FOMO Spike</td>
-                <td style="padding: 20px; font-size: 16px; line-height: 1.5;">Overpays during high-pressure releases due to fear of missing out.</td>
-              </tr>
-              <tr style="border-bottom: 1px solid #eee;">
-                <td style="padding: 20px; font-weight: bold; color: #28a745; font-size: 16px;">Anchoring Bias</td>
-                <td style="padding: 20px; font-size: 16px; line-height: 1.5;">Normalize inflated values and rationalize them, resetting expectations.</td>
-              </tr>
-              <tr style="border-bottom: 1px solid #eee; background: #f8f9fa;">
-                <td style="padding: 20px; font-weight: bold; color: #ffc107; font-size: 16px;">Speculative Buyer</td>
-                <td style="padding: 20px; font-size: 16px; line-height: 1.5;">Motivated by potential profit.</td>
-              </tr>
-              <tr>
-                <td style="padding: 20px; font-weight: bold; color: #6f42c1; font-size: 16px;">Emotional Attachment</td>
-                <td style="padding: 20px; font-size: 16px; line-height: 1.5;">Driven by nostalgic ties, identity alignment.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+
       
       <!-- KAWS Price Psychology Analysis Section -->
-      <section class="kaws-analysis-section" style="margin: 40px 0; padding: 20px; background: #f8f9fa; border-radius: 10px;">
-        <h2 style="text-align: center; color: #333; margin-bottom: 50px; font-size: 24px;">KAWS Price Psychology Analysis</h2>
+      <section class="kaws-analysis-section section-layout-tall">
+        <h2>KAWS Price Psychology Analysis</h2>
         
         <div class="analysis-container" style="max-width: 1400px; margin: 0 auto;">
           
@@ -1085,34 +1029,20 @@
             </div>
           </div>
           
-          <!-- Visualization -->
-          <div class="visualization" style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center;">
-            <h3 style="color: #333; margin-bottom: 20px; font-size: 20px;">Analysis Visualizations</h3>
-            <p style="font-size: 16px; color: #666; margin-bottom: 30px;">
-              The analysis generated comprehensive visualizations showing the connection between collector psychology and actual price data:
-            </p>
-                      <div style="max-width: 1400px; margin: 0 auto;">
-            <img src="kaws_price_psychology_analysis.png" alt="KAWS Price Psychology Analysis" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 30px;">
-              <div style="background: #f8f9fa; padding: 15px; border-radius: 6px;">
-                <h4 style="color: #007bff; margin-bottom: 8px;">Price Volatility Heatmap</h4>
-                <p style="font-size: 12px; color: #666;">Shows psychology pattern correlations</p>
-              </div>
-              <div style="background: #f8f9fa; padding: 15px; border-radius: 6px;">
-                <h4 style="color: #dc3545; margin-bottom: 8px;">FOMO vs Volatility</h4>
-                <p style="font-size: 12px; color: #666;">Scatter plot of fear vs price spikes</p>
-              </div>
-              <div style="background: #f8f9fa; padding: 15px; border-radius: 6px;">
-                <h4 style="color: #28a745; margin-bottom: 8px;">Psychology Radar Chart</h4>
-                <p style="font-size: 12px; color: #666;">Multi-dimensional psychology scoring</p>
-              </div>
-              <div style="background: #f8f9fa; padding: 15px; border-radius: 6px;">
-                <h4 style="color: #ffc107; margin-bottom: 8px;">Price Trend Analysis</h4>
-                <p style="font-size: 12px; color: #666;">Time series of psychology patterns</p>
-              </div>
-            </div>
           </div>
+        </section>
+        
+        <!-- Analysis Visualization Section -->
+        <section class="analysis-visualization-section section-layout-extra-tall">
+          <h2>Analysis Visualizations</h2>
+          <p style="font-size: 16px; color: #666; margin-bottom: 30px; text-align: center;">
+            The analysis generated comprehensive visualizations showing the connection between collector psychology and actual price data:
+          </p>
+          <div style="max-width: 1400px; margin: 0 auto;">
+            <img src="kaws_price_psychology_analysis.png" alt="KAWS Price Psychology Analysis" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+          </div>
+
+        </section>
           
           <!-- Impact Summary -->
           <div class="impact" style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
@@ -1130,28 +1060,33 @@
           
           <!-- Final Project Psychology Analysis -->
           <div class="final-analysis" style="background: white; padding: 30px; border-radius: 8px; margin-top: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center;">
-                      <div style="max-width: 1400px; margin: 0 auto;">
-            <img src="final_p.png" alt="Final Project Psychology Analysis" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                      <div style="max-width: 1600px; margin: 0 auto;">
+                            <img src="bot.jpg" alt="Final Project Psychology Analysis" style="max-width: 100%; height: 600px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
             </div>
           </div>
           
-          <!-- PROJECT DEMO Section -->
-          <div class="project-demo" style="background: white; padding: 30px; border-radius: 8px; margin-top: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center;">
-            <h3 style="color: #333; margin-bottom: 20px; font-size: 24px;">PROJECT DEMO</h3>
-                      <div style="max-width: 1400px; margin: 0 auto;">
+        </section>
+        
+        <!-- Project Demo Section -->
+        <section class="project-demo-section section-layout">
+          <h2>PROJECT DEMO</h2>
+          <div style="max-width: 1400px; margin: 0 auto;">
             <img src="toy_bot_dual_personalized.gif" alt="Dual Perspective Animation: Toy's Journey vs Bot's Transparency Analysis" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-            </div>
           </div>
+        </section>
           
-          <!-- Project Ideation Sketch Demo Version -->
-          <div class="ideation-demo" style="background: white; padding: 30px; border-radius: 8px; margin-top: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center;">
-            <h3 style="color: #333; margin-bottom: 20px; font-size: 24px;">Project Ideation Sketch Demo Version</h3>
-            <div style="max-width: 1400px; margin: 0 auto;">
-              <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube.com/embed/85wKHOLxZck" frameborder="0" allowfullscreen></iframe>
-              </div>
-            </div>
+        </section>
+        
+        <!-- Project Demo Section -->
+        <section class="project-ideation-section section-layout">
+          <h2>Project Demo Version</h2>
+          <div style="max-width: 1400px; margin: 0 auto; height: calc(100% - 80px); display: flex; align-items: center; justify-content: center;">
+            <video style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" controls>
+              <source src="collectorbot.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
           </div>
+        </section>
           
 
           
@@ -1163,4 +1098,9 @@
       </div>
     </main>
 </body>
+</html> 
+      </div>
+    </main>
+</body>
+</html> 
 </html> 
